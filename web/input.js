@@ -1,4 +1,5 @@
 import {headTracker} from './head-tracking.js';
+import {createGamepad} from './gamepad.js';
 const $ = (id) => document.getElementById(id);
 const clamp = (value,min,max) => Math.min(max,Math.max(min,value));
 
@@ -30,7 +31,11 @@ function bindDeckButton(control, activate) {
   });
 }
 
-export function bindControls({ aim, grab, insertCoin, restock,playing }) {
+export function bindControls({
+  aim, grab, insertCoin, restock, playing,
+  prevBay=()=>{}, nextBay=()=>{}, toggleGuide=()=>{}, openOutlet=()=>{},
+  back=()=>{}, inMenu=()=>false, inWin=()=>false, menuNav=()=>{}, menuConfirm=()=>{},
+}) {
   const viewport=$('viewport');
   const joystick=$('joystick');
   const knob=$('knob');
@@ -233,8 +238,50 @@ export function bindControls({ aim, grab, insertCoin, restock,playing }) {
     }
     return moving;
   }
+  const pad=createGamepad({
+    onConnect(){if(!tracking)temporaryNotice('手柄已连接');},
+    onDisconnect(){if(!tracking)temporaryNotice('手柄已断开');},
+    onGrab:grab,
+    onCoinOrRestock(){
+      if(!$('coin-insert').hidden&&!$('coin-insert').disabled)insertCoin();
+      else if(!$('restock').hidden&&!$('restock').disabled)restock();
+    },
+    onToggleGuide:toggleGuide,
+    onPrevBay:prevBay,
+    onNextBay:nextBay,
+    onOpenOutlet:openOutlet,
+    onCenter(){center();if(!tracking)temporaryNotice('视角已回正');},
+    onBack:back,
+    onMenuNav:menuNav,
+    onMenuConfirm:menuConfirm,
+    playing,
+    inMenu,
+    inWin,
+    tracking:()=>tracking,
+    onPeek(dx,dy){
+      target.x=clamp(target.x+dx*11.5,-7.0,7.0);
+      target.y=clamp(target.y+dy*6.8,-2.6,3.6);
+    },
+  });
+  let padDrivingKnob=false;
+  function pollGamepad(now,dt){
+    const active=pad.poll(now,dt);
+    if(stickPointer===null){
+      if(active){
+        const rect=joystick.getBoundingClientRect();
+        knob.style.setProperty('--knob-x',`${pad.move.x*rect.width*0.24}px`);
+        knob.style.setProperty('--knob-y',`${pad.move.z*rect.height*0.24}px`);
+        padDrivingKnob=true;
+      }else if(padDrivingKnob){
+        knob.style.removeProperty('--knob-x');
+        knob.style.removeProperty('--knob-y');
+        padDrivingKnob=false;
+      }
+    }
+    return active;
+  }
   function movement() {
-    let x=axes.x, z=axes.z;
+    let x=axes.x+pad.move.x, z=axes.z+pad.move.z;
     for(const key of held) { x+=moves[key][0]; z+=moves[key][1]; }
     const length=Math.max(1,Math.hypot(x,z));
     return {x:x/length,z:z/length};
@@ -250,7 +297,7 @@ export function bindControls({ aim, grab, insertCoin, restock,playing }) {
     if(hasCamera&&trackingWanted&&!tracking)setTracking(true);
   }
   return {
-    gaze,updateView,movement,releaseMovement,pauseForMenu,resumeAfterMenu,
+    gaze,updateView,pollGamepad,rumble:pad.rumble,movement,releaseMovement,pauseForMenu,resumeAfterMenu,
     hasCamera:()=>hasCamera,
     isTracking:()=>tracking,
     toggleTracking(){if(hasCamera){trackingWanted=!tracking;setTracking(trackingWanted);}},

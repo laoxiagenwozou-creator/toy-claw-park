@@ -76,7 +76,51 @@ function run(){
   let coinPending=false,grabPhase='';
   const wallet=createWallet(refresh);
   bindCatchSettings(wallet,()=>mode==='menu'&&!busy);
-  const controls=bindControls({aim,grab,insertCoin,restock,playing:()=>mode==='play'&&!busy&&!$('sound-settings').open&&!room?.isOpen()});
+  function navigateUI(dx,dy){
+    if(mode==='menu'){
+      const buttons=[...$('stage-grid').querySelectorAll('.stage-card')];
+      if(!buttons.length)return;
+      const cur=buttons.indexOf(document.activeElement);
+      const cols=Math.max(1,Math.round($('stage-grid').clientWidth/Math.max(1,buttons[0].getBoundingClientRect().width)));
+      const next=cur<0?0:(cur+dx+dy*cols+buttons.length)%buttons.length;
+      buttons[next].focus({preventScroll:false});
+    }else if(mode==='won'){
+      const buttons=[...$('win').querySelectorAll('button:not([hidden]):not(:disabled)')];
+      if(!buttons.length)return;
+      const cur=buttons.indexOf(document.activeElement);
+      const step=(dx||dy)||1;
+      buttons[(cur<0?0:cur+step+buttons.length)%buttons.length].focus({preventScroll:true});
+    }
+  }
+  function confirmUI(){
+    const el=document.activeElement;
+    if(mode==='menu'){
+      const target=el?.classList?.contains('stage-card')?el:$('stage-grid').querySelector('.stage-card');
+      target?.click();
+    }else if(mode==='won'){
+      const target=el&&$('win').contains(el)&&el.tagName==='BUTTON'?el:$('next-stage');
+      target?.click();
+    }
+  }
+  function gamepadBack(){
+    const openDialog=document.querySelector('dialog[open]');
+    if(openDialog){openDialog.close();return;}
+    if(!$('credits').hidden){$('credits-close').click();return;}
+    if((mode==='play'||mode==='won')&&!busy)menu();
+  }
+  const controls=bindControls({
+    aim,grab,insertCoin,restock,
+    playing:()=>mode==='play'&&!busy&&!$('sound-settings').open&&!room?.isOpen(),
+    prevBay:()=>{if(mode==='play'&&!busy)enter(adjacent(-1));},
+    nextBay:()=>{if(mode==='play'&&!busy)enter(adjacent(1));},
+    toggleGuide:()=>{if(mode==='play'&&!busy)$('guide').click();},
+    openOutlet:()=>{if(mode==='play'&&!busy)$('outlet').click();},
+    back:gamepadBack,
+    inMenu:()=>mode==='menu'&&!busy&&!document.querySelector('dialog[open]')&&$('credits').hidden,
+    inWin:()=>mode==='won'&&!busy&&!$('win').hidden&&!document.querySelector('dialog[open]'),
+    menuNav:navigateUI,
+    menuConfirm:confirmUI,
+  });
   room=createPlayroom(boards,sound,()=>stage,()=>!busy&&(mode==='play'||mode==='won'),()=>{controls.releaseMovement();stopCarriage();});
   const medals=createMedalWall(boards,enter,controls,()=>{if(mode==='menu')controls.stopMenuTracking();});
   function showGuideSetting(){
@@ -336,7 +380,7 @@ function run(){
         poseToy(toy,interpolatePose(start,release,t),height,pitch+tilt*(.08+.055*Math.sin(Math.PI*2*t)));
       });
     }
-    const releaseY=arm.y;sound.effect('slip',surfaceSound(toy.kind));
+    const releaseY=arm.y;sound.effect('slip',surfaceSound(toy.kind));controls.rumble(110,.35,.22);
     kickPendulum(-plan.lean*.95,((index%2?1:-1)*.55));
     say(lift?'半路滑下来了':'玩具滚开了');
     await animate(Math.max(.20,Math.sqrt(2*height/10)),t=>{
@@ -442,7 +486,7 @@ function run(){
         placeShadow(toy,nx,nz,rest.yaw,1);
       }
       if(soft)squash(toy,.14*t);
-    });sound.effect('jaw');
+    });sound.effect('jaw');controls.rumble(hit?85:45,hit?.30:.12,hit?.45:.15);
     if(hit&&hit.hold)kickPendulum(tilt*.55,(hit.id%2?1:-1)*.22);
     arm.marker=false;grabPhase='提爪中';refresh();
     if(hit&&!hit.hold){
@@ -470,7 +514,7 @@ function run(){
             sameStall(b.poses[hit.id]??poseFor(stage,hit.id,generation),toy.stall)&&awardToy(b,stage,hit.id,toy.kind,generation));
           if(awarded){
             earnedMedal=board.round===6;
-            garage.remove(hit.id);refresh();room.rattle();celebrate(garage.prizeOutlet());sound.effect('prize');
+            garage.remove(hit.id);refresh();room.rattle();celebrate(garage.prizeOutlet());sound.effect('prize');controls.rumble(180,.55,.70);
             say('抓到'+PRIZES[toy.kind].name+'啦！','点开取物口，把玩具带回家');
           }else{
             garage.remove(hit.id);
@@ -616,6 +660,7 @@ function run(){
     const viewDt=clamp((now-last)/1000,0,.25);last=now;
     const dt=Math.min(viewDt,.10);
     if(!document.hidden){
+      controls.pollGamepad(now,dt);
       const viewingMedal=medals.isViewing();
       if(mode==='play'||mode==='won'||mode==='travelling'){
         const cameraMoved=controls.updateView(now,viewDt),active=Boolean(tween);

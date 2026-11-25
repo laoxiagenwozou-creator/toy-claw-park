@@ -14,6 +14,10 @@
 <key>LSApplicationCategoryType</key><string>public.app-category.games</string>
 <key>LSMinimumSystemVersion</key><string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 <key>NSCameraUsageDescription</key><string>使用前置摄像头在本机感应头部位置，实现裸眼 3D 立体视角。画面不会保存或上传。</string>
+<key>GCSupportedGameControllers</key><array>
+  <dict><key>ProfileName</key><string>ExtendedGamepad</string></dict>
+</array>
+<key>GCSupportsControllerUserInteraction</key><true/>
 <key>NSHighResolutionCapable</key><true/>
 <key>NSPrincipalClass</key><string>NSApplication</string>
 </dict></plist>
