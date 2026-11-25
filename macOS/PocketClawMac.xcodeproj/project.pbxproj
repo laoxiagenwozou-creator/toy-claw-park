@@ -1,0 +1,36 @@
+// !$*UTF8*$!
+{
+ archiveVersion = 1;
+ classes = {};
+ objectVersion = 56;
+ objects = {
+  M00000000000000000000001 = {isa = PBXProject; buildConfigurationList = M00000000000000000000020; compatibilityVersion = "Xcode 14.0"; developmentRegion = zh_CN; hasScannedForEncodings = 0; knownRegions = (zh_CN, Base); mainGroup = M00000000000000000000002; productRefGroup = M00000000000000000000003; projectDirPath = ""; projectRoot = ""; targets = (M00000000000000000000004); };
+  M00000000000000000000002 = {isa = PBXGroup; children = (M00000000000000000000005, M00000000000000000000003); sourceTree = "<group>"; };
+  M00000000000000000000003 = {isa = PBXGroup; children = (M00000000000000000000006); name = Products; sourceTree = "<group>"; };
+  M00000000000000000000004 = {isa = PBXNativeTarget; buildConfigurationList = M00000000000000000000021; buildPhases = (M00000000000000000000011,M00000000000000000000012,M00000000000000000000013,M00000000000000000000014); buildRules = (); dependencies = (); name = PocketClawMac; productName = PocketClaw; productReference = M00000000000000000000006; productType = "com.apple.product-type.application"; };
+  M00000000000000000000005 = {isa = PBXGroup; children = (M00000000000000000000007,M00000000000000000000008,M00000000000000000000009,M0000000000000000000000A,M0000000000000000000000B,M00000000000000000000031); path = App; sourceTree = "<group>"; };
+  M00000000000000000000006 = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PocketClaw.app; sourceTree = BUILT_PRODUCTS_DIR; };
+  M00000000000000000000007 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+  M00000000000000000000008 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameWindowController.swift; sourceTree = "<group>"; };
+  M00000000000000000000009 = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = Bridge.js; sourceTree = "<group>"; };
+  M0000000000000000000000A = {isa = PBXFileReference; lastKnownFileType = image.icns; path = AppIcon.icns; sourceTree = "<group>"; };
+  M0000000000000000000000B = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+  M00000000000000000000031 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceCaptureMac.swift; sourceTree = "<group>"; };
+  M0000000000000000000000C = {isa = PBXBuildFile; fileRef = M00000000000000000000007; };
+  M0000000000000000000000D = {isa = PBXBuildFile; fileRef = M00000000000000000000008; };
+  M0000000000000000000000E = {isa = PBXBuildFile; fileRef = M00000000000000000000009; };
+  M0000000000000000000000F = {isa = PBXBuildFile; fileRef = M0000000000000000000000A; };
+  M00000000000000000000032 = {isa = PBXBuildFile; fileRef = M00000000000000000000031; };
+  M00000000000000000000011 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (M0000000000000000000000C,M0000000000000000000000D,M00000000000000000000032); runOnlyForDeploymentPostprocessing = 0; };
+  M00000000000000000000012 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+  M00000000000000000000013 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (M0000000000000000000000E,M0000000000000000000000F); runOnlyForDeploymentPostprocessing = 0; };
+  M00000000000000000000014 = {isa = PBXShellScriptBuildPhase; alwaysOutOfDate = 1; buildActionMask = 2147483647; files = (); inputPaths = (); outputPaths = ("$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Park.html"); name = "Bundle offline game"; runOnlyForDeploymentPostprocessing = 0; shellPath = /bin/sh; shellScript = "\"$SRCROOT/../iPad/bundle-game.sh\" \"$SCRIPT_OUTPUT_FILE_0\"\n"; };
+  M00000000000000000000020 = {isa = XCConfigurationList; buildConfigurations = (M00000000000000000000022,M00000000000000000000023); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+  M00000000000000000000021 = {isa = XCConfigurationList; buildConfigurations = (M00000000000000000000024,M00000000000000000000025); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+  M00000000000000000000022 = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; SDKROOT = macosx; MACOSX_DEPLOYMENT_TARGET = 13.0; SWIFT_VERSION = 5.0; ENABLE_USER_SCRIPT_SANDBOXING = NO; DEBUG_INFORMATION_FORMAT = dwarf; SWIFT_OPTIMIZATION_LEVEL = "-Onone";}; name = Debug; };
+  M00000000000000000000023 = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; SDKROOT = macosx; MACOSX_DEPLOYMENT_TARGET = 13.0; SWIFT_VERSION = 5.0; ENABLE_USER_SCRIPT_SANDBOXING = NO; SWIFT_COMPILATION_MODE = wholemodule;}; name = Release; };
+  M00000000000000000000024 = {isa = XCBuildConfiguration; buildSettings = {PRODUCT_NAME = PocketClaw; PRODUCT_BUNDLE_IDENTIFIER = family.pocketclaw.mac.toypark; INFOPLIST_FILE = App/Info.plist; CODE_SIGN_STYLE = Automatic; CODE_SIGN_IDENTITY = "-"; CURRENT_PROJECT_VERSION = 4; MARKETING_VERSION = 2.12.0; COMBINE_HIDPI_IMAGES = YES;}; name = Debug; };
+  M00000000000000000000025 = {isa = XCBuildConfiguration; buildSettings = {PRODUCT_NAME = PocketClaw; PRODUCT_BUNDLE_IDENTIFIER = family.pocketclaw.mac.toypark; INFOPLIST_FILE = App/Info.plist; CODE_SIGN_STYLE = Automatic; CODE_SIGN_IDENTITY = "-"; CURRENT_PROJECT_VERSION = 4; MARKETING_VERSION = 2.12.0; COMBINE_HIDPI_IMAGES = YES;}; name = Release; };
+ };
+ rootObject = M00000000000000000000001;
+}

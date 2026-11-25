@@ -1,0 +1,17 @@
+/* Let WebKit handle scrolling and multi-touch without starting text selection on the game. */
+html, body, body * {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+img, a {
+  -webkit-user-drag: none;
+}
+
+input:is([type="password"], [type="text"], [type="number"]),
+textarea, #recovery-note {
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+}

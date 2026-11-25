@@ -1,0 +1,8 @@
+{
+  "snow":{"round":5,"total":5,"clears":0,"slots":["snowPenguin",null,null,null,null,null],"poses":[{"x":-0.78,"z":-0.38,"angle":0},null,null,null,null,null]},
+  "town":{"round":1,"total":13,"clears":2,"slots":["fire",null,null,null,null,null]},
+  "yard":{"round":6,"total":6,"slots":[null,null,null,null,null,null]},
+  "reef":{"round":0,"total":6,"clears":1,"slots":[null,null,null,null,null,null]},
+  "pony":{"round":0,"total":6,"clears":1,"slots":[null,null,null,null,null,null]},
+  "peppa":{"round":0,"total":6,"clears":1,"slots":[null,null,null,null,null,null]}
+}

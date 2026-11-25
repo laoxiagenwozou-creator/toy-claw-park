@@ -1,0 +1,97 @@
+.prize-bin .bin-glass{position:absolute;z-index:2;inset:0 1% 10%;transform-origin:50% 0;border:1px solid #e5fff5ab;border-radius:3px 3px 5px 5px;background:linear-gradient(115deg,#deffff60 0 16%,#d1f1fb1a 17% 43%,#fff7 44% 48%,#c3e8ef38 49%);transition:transform .23s ease-out}
+.prize-bin .bin-toy{position:absolute;left:50%;top:46%;width:min(76%,76px);aspect-ratio:1;transform:translate(-50%,-50%);opacity:0}.prize-bin.full .bin-toy{opacity:1}
+.prize-bin .bin-label{position:absolute;z-index:3;inset:auto 0 0;color:#fff;background:#345552ee;font-size:clamp(10px,1.55dvh,16px);font-weight:800;line-height:1.25}
+.prize-bin.full{border-color:#efbc5c;animation:prize-light 2.1s ease-in-out infinite}
+.prize-bin.rattle .bin-glass{animation:door-rattle .65s ease-out}.prize-bin.opening .bin-glass{transform:rotateX(-75deg)}
+@keyframes prize-light{50%{box-shadow:0 0 0 2px #f8cf7e,0 3px 7px #a67a3980,inset 0 5px 5px #536766}}
+@keyframes door-rattle{0%,100%{transform:rotateX(0)}23%{transform:rotateX(-36deg)}47%{transform:rotateX(6deg)}72%{transform:rotateX(-13deg)}}
+
+#playroom{--wood-light:#f4d8a6;--wood-mid:#d5a36e;--wood-dark:#9e693c;color:var(--ink);font:inherit;width:min(880px,95vw);max-width:96vw;max-height:94dvh;
+  padding:clamp(10px,2dvh,20px) clamp(14px,2.2vw,26px);border:3px solid #e5c493;border-radius:22px;background:linear-gradient(145deg,#fff9e9,#fbedd1);
+  box-shadow:0 6px 0 #af8358,0 20px 65px #243f3e66;overflow:auto;overscroll-behavior:contain}
+#playroom[open][data-tab=shelf]{display:flex;flex-direction:column;height:min(90dvh,680px);overflow:hidden}
+#playroom[open][data-tab=shelf] #room-shelf{display:flex;flex-direction:column;flex:1;min-height:0}
+#playroom::backdrop{background:#213e4090}
+.room-header,.toy-actions,#room-tabs,#shelf-stages{display:flex;align-items:center}
+.room-header{justify-content:space-between;gap:12px;flex:none}.room-header h2{margin:0;color:#285752;font-size:clamp(20px,3.6dvh,32px);line-height:1.12}
+.room-header p,#mission-place{margin:0 0 2px;color:#706045;font-size:13px;font-weight:750}
+.room-close{width:40px;height:40px;border:1px solid #cdb891;border-radius:50%;font-size:24px;background:#fffaf0;color:#514d3e;cursor:pointer}
+#room-tabs{gap:7px;margin:8px 0 4px;flex:none}
+#room-tabs button,#shelf-stages button,.toy-actions button,#read-request,#accept-request{min-height:36px;padding:5px 13px;border:1px solid #cab58d;border-radius:10px;background:#fffaec;color:#345952;font:inherit;font-size:14px;line-height:1.24;font-weight:750;cursor:pointer}
+#room-tabs button{font-weight:800}
+#room-tabs [aria-pressed=true]{background:#286d69;color:#fff8e5;border-color:#286d69}
+#shelf-stages{gap:5px;overflow-x:auto;padding:3px 1px 6px;flex:none;scrollbar-width:thin;scrollbar-color:#c9a781 transparent}
+#shelf-stages button{display:inline-flex;align-items:center;gap:5px;flex:none;font-size:12px;border-radius:20px;padding:4px 9px;min-height:32px}
+#shelf-stages button::before{content:'';width:9px;height:9px;border-radius:50%;background:var(--theme-color);box-shadow:inset 0 0 0 1px #0002}
+#shelf-stages [aria-pressed=true]{color:#244941;background:#e2ecdb;border-color:#789887}
+.room-body h3{font-size:15px;margin:4px 0 3px;color:#5a462c}
+#empty-shelf,#room-note,#mission-status{font-size:13.5px;line-height:1.42;color:#536050}
+#empty-shelf{margin:4px 0 6px;padding:7px 14px;text-align:center;border-radius:10px;background:#f7e8c7;border:1px solid #e2c593;flex:none}
+#room-note{margin:6px 0 0;color:#286056;flex:none}
+#waiting-tray{flex:none;margin:2px 0 8px;padding:6px 10px 8px;border-radius:14px;background:linear-gradient(180deg,#fff3cf,#f9e0a6);border:1.5px solid #e3b868;box-shadow:inset 0 1px 0 #fff9e8}
+#waiting-tray h3{margin:0 0 4px;color:#82531c;font-size:13px;font-weight:800;letter-spacing:.04em}
+.toy-grid{display:flex;flex-wrap:wrap;gap:6px 8px;padding:2px}
+.toy-tile{position:relative;display:grid;justify-items:center;align-content:end;min-width:0;width:90px;height:102px;padding:2px 2px 4px;border:0;border-radius:10px;background:transparent;color:#344c43;cursor:pointer;transition:transform .14s ease}
+.toy-tile:hover,.toy-tile:focus-visible{transform:translateY(-3px)}
+#waiting-toys .toy-tile{background:#fff8e3;border:1px solid #e7c682;height:96px;align-content:center;box-shadow:0 2px 6px #9e6c2426}
+.toy-tile strong{font-size:11.5px;line-height:1.15;padding:1px 6px;border-radius:8px;background:#fff8e8e6;box-shadow:0 1px 2px #58381b24;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toy-tile small{position:absolute;top:2px;right:2px;background:#ffdc8a;border:1px solid #d59d43;color:#5b3c14;border-radius:9px;padding:0 5px;font-size:11px;font-weight:850}
+.portrait{display:block;width:100%;aspect-ratio:1;background-repeat:no-repeat}
+.toy-tile .portrait{width:76px;max-width:100%;filter:drop-shadow(0 5px 3px rgba(68,40,18,.28))}
+
+/* Giant scrollable 12-tier physical wooden toy bookcase */
+.grand-bookcase{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;border-radius:14px;
+  border-inline:11px solid #b9824e;
+  background:linear-gradient(90deg,rgba(98,58,24,.16),transparent 14px,transparent calc(100% - 14px),rgba(98,58,24,.16)),
+    repeating-linear-gradient(90deg,#f6ebd2 0 38px,#f0e2c3 38px 40px);
+  box-shadow:inset 0 8px 14px rgba(84,48,20,.22),inset 2px 0 0 #d9a772,inset -2px 0 0 #8f5c31,0 5px 14px rgba(62,38,16,.2);
+  scrollbar-width:thin;scrollbar-color:#b9824e #f2e4c4}
+.bookcase-crown{position:sticky;top:0;z-index:4;height:14px;
+  background:linear-gradient(180deg,#e9c28a 0 3px,#c88f58 3px 9px,#9a6437 9px 14px);
+  box-shadow:0 4px 8px rgba(72,40,15,.26)}
+.bookcase-base{height:16px;
+  background:linear-gradient(180deg,#d8a56e 0 4px,#b57c48 4px 12px,#87552b 12px 16px)}
+.shelf-tier{position:relative;display:grid;grid-template-columns:clamp(108px,19%,148px) 1fr;grid-template-rows:1fr auto;
+  min-height:132px;background:linear-gradient(180deg,rgba(98,58,24,.10) 0,transparent 18px)}
+.shelf-tier.is-current{background:linear-gradient(180deg,rgba(255,245,204,.55) 0,rgba(255,248,225,.28) 100%)}
+.shelf-tier.is-current .tier-landmark{box-shadow:inset 3px 0 0 var(--theme-color)}
+.tier-landmark{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  padding:8px 8px 6px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--theme-color) 18%,#faf0d8),color-mix(in srgb,var(--theme-color) 11%,#f3e3c2));
+  border-right:5px solid #c38c56;
+  box-shadow:inset -2px 0 0 #e7be89,inset 2px 0 5px rgba(84,48,20,.10)}
+.landmark-icon{display:block;width:74px;height:65px;background-repeat:no-repeat;filter:drop-shadow(0 4px 4px rgba(58,36,16,.24))}
+.landmark-name{font-size:12px;font-weight:850;color:#2c4a45;text-align:center;line-height:1.15;
+  padding:2px 7px;border-radius:8px;background:#fff8eae0;border:1px solid color-mix(in srgb,var(--theme-color) 35%,#d8be90)}
+.landmark-meta{font-size:11px;font-weight:800;color:#6f5b3f;letter-spacing:.02em}
+.shelf-tier.is-complete .landmark-meta{color:#a86b14;background:#ffefc2;padding:0 6px;border-radius:8px}
+.landmark-pending{position:absolute;top:5px;right:5px;font-style:normal;font-size:10px;font-weight:850;color:#fff;background:#d9663c;
+  padding:1px 6px;border-radius:9px;box-shadow:0 1px 3px rgba(84,32,12,.3)}
+.tier-toys{display:flex;flex-wrap:wrap;align-items:flex-end;align-content:flex-end;gap:4px 8px;padding:8px 12px 3px}
+.tier-empty{display:flex;align-items:center;gap:10px;width:100%;min-height:84px;padding:8px 10px;color:#8b7556;font-size:13px;font-weight:700}
+.tier-slots{display:inline-flex;gap:10px;align-items:flex-end}
+.tier-slots i{display:block;width:36px;height:10px;border-radius:50%;background:radial-gradient(ellipse,#b892624d,#b8926200 72%);border:1.5px dashed #c6a17280}
+.tier-ledge{grid-column:1 / -1;height:14px;
+  background:linear-gradient(180deg,#f5d8a5 0 3px,#d59e67 3px 9px,#a87141 9px 14px);
+  box-shadow:0 5px 8px rgba(74,42,16,.24),inset 0 1px 0 #ffebc2}
+#mission-card{display:grid;grid-template-columns:minmax(100px,36%) 1fr;align-items:center;gap:clamp(12px,2.5vw,27px);padding:clamp(12px,2.4vw,24px);border:1px solid #d8bd8e;border-radius:17px;background:#f9e6bf}
+.mission-picture{width:min(100%,175px);margin:auto;border-radius:48%;background:#fff8e8}
+.mission-copy h3{font-size:clamp(18px,3.6dvh,29px);line-height:1.3;margin:4px 0 9px}
+#playroom .room-primary{background:var(--teal);border-color:#215a59;color:white;font-weight:800;box-shadow:0 2px #285452}
+#playroom button:disabled{opacity:.54;cursor:default}
+#toy-stage{position:relative;isolation:isolate;height:clamp(140px,40dvh,310px);margin:10px 0;overflow:hidden;border:1px solid #dec598;border-radius:16px;
+  background:radial-gradient(ellipse at 23% 0,#fff9e6,transparent 63%),linear-gradient(176deg,#daeae1,#d7e9e1 62%,#e4cda6 62.6%,#f6dfb8 83%,#f2d4ab)}
+#toy-view{position:absolute;inset:0 auto 0 0;width:100%;touch-action:none;cursor:grab;transform:translate(var(--carry-x,0),var(--carry-y,0)) scale(var(--carry-scale,1));z-index:1}
+#toy-view canvas{width:100%;height:100%;display:block;pointer-events:none}
+#toy-stage[data-parking=yes] #toy-view{width:72%}
+#toy-stage.carrying #toy-view{pointer-events:none;z-index:3;cursor:grabbing}
+#carry-toy{touch-action:none;position:absolute;z-index:4;left:3%;bottom:4%;border:1px solid #83a397;border-radius:15px;background:#fbfff1e8;padding:5px 10px;min-height:32px;color:#346257;font-weight:750}
+#park-target{position:absolute;display:grid;justify-items:center;align-content:end;right:2%;bottom:6%;width:27%;height:75%;z-index:2;border:2px dashed transparent;border-radius:15px;background:transparent;color:#4c503c;padding:2px}
+.dock-model{display:block;width:100%;max-height:85%;aspect-ratio:8/7;background-position:var(--dock-x) 0%;background-repeat:no-repeat}
+#park-label{background:#fff1cf;border:1px solid #c9ac77;border-radius:10px;padding:2px 9px;font-size:clamp(11px,2dvh,16px)}
+#toy-stage.carrying #park-target{border-color:#80a99b}
+#toy-stage.over-dock #park-target{background:#ddf1d8cc;border-color:#3b8272}
+#toy-stage.over-dock .dock-model,#toy-stage.stowing .dock-model{background-position:var(--dock-x) 100%}
+.toy-actions{gap:6px;justify-content:center;flex-wrap:wrap}.toy-actions button{font-weight:750}
+@media(max-height:470px){#playroom{padding:8px 14px}#room-tabs{margin-top:4px}#shelf-stages{padding-block:2px}#toy-stage{height:42dvh;margin:5px 0}.mission-picture{max-width:118px}.toy-actions button{min-height:34px;padding:4px 8px}.shelf-tier{min-height:112px;grid-template-columns:104px 1fr}.landmark-icon{width:60px;height:52px}.toy-tile{width:80px;height:90px}.toy-tile .portrait{width:64px}}
+@media(prefers-reduced-motion:reduce){.prize-bin.full,.prize-bin.rattle .bin-glass{animation:none}.prize-bin .bin-glass,.toy-tile{transition:none}}

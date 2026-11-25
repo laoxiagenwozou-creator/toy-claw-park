@@ -1,0 +1,9 @@
+/node_modules/
+/releases/
+/dist/
+/.toolchain/
+/build/
+/.impeccable/
+xcuserdata/
+*.xcworkspace/xcuserdata/
+.DS_Store

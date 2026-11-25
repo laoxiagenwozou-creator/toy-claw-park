@@ -1,0 +1,12 @@
+const {qaDir,gameHtml}=require('./paths.cjs');
+const {spawnSync}=require('node:child_process');
+const fs=require('node:fs'),path=require('node:path');
+const adb='C:/Users/13388/AppData/Local/Android/Sdk/platform-tools/adb.exe';
+const id='d0f3bf40';
+if(!/^[a-z0-9-]+$/.test(process.argv[2]||''))throw Error('Expected screenshot label');
+const focused=spawnSync(adb,['-s',id,'shell','dumpsys','window'],{encoding:'utf8'});
+if(!focused.stdout.split('\n').some(l=>l.includes('mCurrentFocus=')&&l.includes('dev.playroom.pupclaw'))) throw Error('Game is not in foreground');
+const capture=spawnSync(adb,['-s',id,'exec-out','screencap','-p'],{maxBuffer:30_000_000});
+if(capture.status!==0||!capture.stdout.subarray(1,4).equals(Buffer.from('PNG')))throw Error('Screenshot failed');
+fs.writeFileSync(path.join(qaDir,'pad-'+process.argv[2]+'.png'),capture.stdout);
+console.log('Pad',capture.stdout.readUInt32BE(16),capture.stdout.readUInt32BE(20),process.argv[2]);

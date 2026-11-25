@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleDevelopmentRegion</key><string>zh_CN</string>
+<key>CFBundleDisplayName</key><string>口袋抓娃乐园</string>
+<key>CFBundleExecutable</key><string>$(EXECUTABLE_NAME)</string>
+<key>CFBundleIdentifier</key><string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+<key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
+<key>CFBundleName</key><string>口袋抓娃乐园</string>
+<key>CFBundlePackageType</key><string>APPL</string>
+<key>CFBundleShortVersionString</key><string>$(MARKETING_VERSION)</string>
+<key>CFBundleVersion</key><string>$(CURRENT_PROJECT_VERSION)</string>
+<key>LSRequiresIPhoneOS</key><true/>
+<key>NSCameraUsageDescription</key><string>使用前置摄像头在本机感应头部位置，让抓娃娃机和纪念牌随视角变化。画面不会保存或上传。</string>
+<key>NSFaceIDUsageDescription</key><string>家长选择使用本机身份验证恢复 PIN 时，可通过面容 ID 确认身份。</string>
+<key>UIApplicationSceneManifest</key><dict>
+  <key>UIApplicationSupportsMultipleScenes</key><false/>
+  <key>UISceneConfigurations</key><dict/>
+</dict>
+<key>UILaunchScreen</key><dict/>
+<key>UISupportedInterfaceOrientations</key><array>
+  <string>UIInterfaceOrientationLandscapeLeft</string><string>UIInterfaceOrientationLandscapeRight</string>
+</array>
+<key>UISupportedInterfaceOrientations~ipad</key><array>
+  <string>UIInterfaceOrientationLandscapeLeft</string><string>UIInterfaceOrientationLandscapeRight</string>
+</array>
+<key>UIRequiresFullScreen</key><true/>
+</dict></plist>

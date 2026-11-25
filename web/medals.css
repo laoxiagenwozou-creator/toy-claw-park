@@ -1,0 +1,84 @@
+.park-collections{display:flex;align-items:center;gap:clamp(6px,1vw,16px)}
+#wall-open{display:flex;gap:.4em;align-items:center;justify-content:center;min-height:42px;padding:.52em .82em;border:2px solid #fff3d0;border-radius:17px;background:#253b4a;color:#fff7de;font-size:clamp(15px,2.7dvh,25px);font-weight:800;box-shadow:0 3px 0 #1a2734}
+.wall-symbol{color:#f1d08d}
+#win,.gallery-heading,.award-panel,#medal-wall{--paper:#edf8f4;--gold:#f4d79d;--muted:#afc9c8;--case:#102734}
+#win{background:#122936ab}
+.award-panel,#medal-wall{color:var(--paper);border:1px solid #a2baaa;background:radial-gradient(ellipse at 7% 0%,#325556,transparent 58%),linear-gradient(135deg,#1c3540,#102331 75%);box-shadow:inset 0 0 0 4px #c4d6c30e,0 12px 50px #07151f77}
+.award-panel{width:min(800px,96vw);max-height:94dvh;border-radius:22px;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);align-items:center;gap:clamp(16px,3.5vw,52px);padding:clamp(13px,3.5dvh,36px) clamp(19px,4vw,52px)}
+.award-copy h2,.detail-copy h3{font-size:clamp(23px,min(3.7vw,6.1dvh),47px);line-height:1.2;margin:.2em 0 .32em;letter-spacing:.015em;color:var(--paper)}
+.award-kicker{color:var(--gold);font-size:clamp(12px,1.8dvh,17px);font-weight:750;letter-spacing:.12em;margin:0}
+#win-note,#wall-caption{font-size:clamp(14px,2.45dvh,20px);line-height:1.52;margin:0 0 .45em;color:#daebe6}
+.medal-gesture{margin:.4em 0 1.1em;color:var(--muted);font-size:clamp(12px,1.85dvh,16px)}
+.award-actions{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px}
+.award-actions button,.detail-copy button,.gallery-close{border:1px solid #839e9d;border-radius:11px;background:#263e49;color:#f5f6e8;min-height:42px;padding:6px 13px;font-size:clamp(13px,2dvh,17px);font-weight:750}
+.award-actions button{grid-column:span 2;padding-inline:4px}.award-actions :is(#next-stage,#win-wall){grid-column:span 3}
+button.award-primary{background:var(--gold);border-color:#ffe6ae;color:#2b3c3f}
+.medal-mount{display:grid;place-items:center;min-width:0;perspective:900px}
+.foil-card,.locked-medal{position:relative;aspect-ratio:5/7;width:min(100%,clamp(125px,41dvh,270px))}
+.foil-card{display:block;isolation:isolate;border:0;padding:0;background:transparent;color:white;touch-action:none;border-radius:6%;font-family:inherit;perspective:900px;--yaw:0deg;--roll:0deg;--pan-x:0px;--pan-y:0px;--glint-x:34%;--glint-y:30%}
+.medal-body{position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(var(--roll)) rotateY(calc(var(--yaw) + var(--turn,0deg)));transition:transform .15s ease-out}
+.foil-card.is-gaze .medal-body{transition:none}
+.foil-card.is-flipped{--turn:180deg}
+.foil-card.is-flipped .medal-body,.foil-card:not(:active):not(.is-gaze) .medal-body{transition:transform .36s cubic-bezier(.2,.7,.24,1)}
+.medal-face{position:absolute;inset:0;overflow:hidden;text-align:left;border-radius:6%;border:1px solid #e1f5dd;backface-visibility:hidden;-webkit-backface-visibility:hidden;box-shadow:inset 0 0 0 2px #91b9b6,0 3px 0 #75878e,0 12px 20px #0513206b;
+  background:radial-gradient(ellipse at 65% 33%,var(--ink),transparent 66%),linear-gradient(148deg,#213847 0%,#101e30 45%,#091928 83%);container-type:inline-size}
+.medal-face::before,.small-medal::before{content:"";position:absolute;inset:2.4%;z-index:3;border:1px solid #ceddd65e;border-radius:4%;pointer-events:none}
+.medal-front{transform:rotateY(0deg)}
+.medal-back{transform:rotateY(180deg)}
+.medal-sheen{position:absolute;inset:-6%;pointer-events:none;background:
+  radial-gradient(ellipse at var(--glint-x) var(--glint-y),#e4ffde44 0%,#77cfed24 24%,transparent 54%),
+  linear-gradient(125deg,transparent 17%,#4e88a326 28%,#8bdac144 35%,#a2a4df3a 39%,#36777d28 46%,transparent 58%),
+  repeating-linear-gradient(123deg,transparent 0 4px,#cfe9eb09 4px 5px);transform:translate(calc(var(--pan-x)*-.75),calc(var(--pan-y)*-.75))}
+.medal-orbit,.slot-orbit{position:absolute;left:14%;top:15%;width:73%;height:52%;border-radius:50%;border:1px solid #d4fff655;background:radial-gradient(circle at 50% 52%,var(--ink) 15%,transparent 72%);box-shadow:0 0 0 5px #a6e4df0d,0 0 0 6px #bde5df30;transform:translate(calc(var(--pan-x,0px)*-1.15),calc(var(--pan-y,0px)*-1.15))}
+.medal-orbit::before{content:"";position:absolute;inset:5%;border-radius:50%;background:radial-gradient(circle,#b7d4d84d .7px,transparent 1px) 0 0/5px 5px}
+.medal-sheen::after{content:"";position:absolute;inset:0;background:linear-gradient(114deg,transparent 22%,#87b7f00e 31%,var(--foil) 43%,#e7c1f796 47%,#7bd3b938 53%,transparent 63%) var(--glint-x) center/185% 100%;opacity:.30}
+.foil-card.is-gaze .medal-sheen::after{opacity:.38}
+.medal-hero,.slot-hero{position:absolute;background-image:var(--medal-atlas);background-position:var(--atlas-x) var(--atlas-y);background-size:400% 300%;background-repeat:no-repeat;aspect-ratio:1}
+.medal-hero{width:77%;left:11.5%;top:15%;transform:translate(calc(var(--pan-x)*1.45),calc(var(--pan-y)*1.35)) scale(1.03);filter:drop-shadow(calc(var(--pan-x)*-.55) calc(7px - var(--pan-y)*.45) 7px #050d22b5)}
+.medal-cam-btn[aria-pressed=true]{background:#1f6a64;border-color:#93e5d2;color:#f3fffb;box-shadow:0 0 0 1px #93e5d255}
+.medal-imprint,.medal-name,.medal-stage,.medal-serial,.medal-back-no,.medal-back-number,.medal-back-name,.medal-back-earned,.medal-dots,.medal-seal{position:absolute;z-index:2}
+.medal-imprint{top:6.5%;left:8%;color:#d6eee6;letter-spacing:.16em;font-weight:700;font-size:clamp(9px,4.5cqw,14px)}
+.medal-seal,.slot-seal{display:grid;place-items:center;border-radius:50%;color:#223a48;border:1px solid #e0e8de;background:conic-gradient(from 20deg,#9eb3bd,#f2e2b6,#afa4d7,#9cddd1,#f3f4d7,#9eb3bd)}
+.medal-seal{width:11%;aspect-ratio:1;top:5.3%;right:7%;font-size:clamp(11px,6cqw,20px)}
+.medal-name{left:8%;right:7%;bottom:24%;font-size:clamp(14px,9.5cqw,31px);font-weight:850;letter-spacing:.03em;line-height:1.18;text-shadow:0 1px 6px #071722}
+.medal-stage{left:8%;bottom:17.1%;font-size:clamp(9px,4.8cqw,16px);font-weight:650;color:#c6dcd8}
+.medal-serial,.medal-back-no,.medal-back-number,.slot-no,.locked-number{font-family:Georgia,'Times New Roman',serif;font-variant-numeric:lining-nums tabular-nums}
+.medal-serial{bottom:5.1%;left:8%;font-size:clamp(13px,8.2cqw,28px);font-style:italic;color:#f6ead1}
+.medal-dots{right:8%;bottom:7%;display:grid;width:19%;grid-template-columns:repeat(6,1fr);gap:2px}
+.medal-dots span{aspect-ratio:1;border-radius:50%;background:#719399}.medal-dots .lit{background:#f9df9b;box-shadow:0 0 3px #f1dfa2}
+.medal-back-no{left:8%;top:27%;font-size:8cqw;font-style:italic;color:var(--foil)}
+.medal-back-number{left:6.5%;top:30%;font-size:38cqw;line-height:1.1;letter-spacing:-.07em;color:#ebf2e6}
+.medal-back-name{left:8%;top:66%;color:#e7e7d8;font-size:6.5cqw;font-weight:bold}
+.medal-back-earned{left:8%;top:77%;font-size:5.2cqw;color:#bbcfc9}
+.just-earned .foil-card{animation:hang-medal .62s cubic-bezier(.2,.82,.26,1) both}
+@keyframes hang-medal{from{opacity:0;transform:translateY(12px) rotate(-4deg)}to{opacity:1;transform:none}}
+#medal-wall{flex-direction:column;width:min(94vw,1080px);height:min(92dvh,850px);max-width:100vw;max-height:100dvh;border-radius:23px;padding:0;overflow:hidden}
+#medal-wall[open]{display:flex}#medal-wall::backdrop{background:#10212bcc}
+.gallery-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:clamp(9px,2dvh,21px) clamp(18px,3vw,42px);border-bottom:1px solid #8ea9a249;background:linear-gradient(90deg,#34545744,#182e3a)}
+.gallery-heading h2{font-family:Georgia,'Microsoft YaHei',system-ui,sans-serif;font-size:clamp(22px,4.4dvh,40px);line-height:1.16;letter-spacing:.06em;margin:0;color:var(--paper)}
+.gallery-heading p{color:#b9d1cb;margin:4px 0 0;font-size:clamp(12px,1.9dvh,16px);font-weight:600}
+.gallery-close{min-width:42px;line-height:1;font-size:24px;background:#1f3540;border-radius:50%;padding:0}
+#wall-display{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-color:#697f7b transparent;padding:0 clamp(10px,2.3vw,30px) 12px}
+#wall-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));background:linear-gradient(90deg,transparent,#32474a44,transparent)}
+.medal-slot{position:relative;min-width:0;display:flex;align-items:center;flex-direction:column;justify-content:flex-end;gap:2px;padding:clamp(8px,1.6dvh,17px) 3px clamp(12px,2.2dvh,23px);border:0;border-radius:0;background:radial-gradient(ellipse at center 0%,#bddfbe0c,transparent 72%);color:#b8ccc9}
+.medal-slot::after{content:"";height:6px;position:absolute;bottom:0;inset-inline:0;background:linear-gradient(#9b8c73,#7f725e 35%,#584f46 55%,#4b4540);box-shadow:0 4px 7px #050f1d99;pointer-events:none}
+.medal-slot:focus-visible{z-index:2;outline-offset:-4px}.medal-slot:hover .small-medal,.medal-slot:focus-visible .small-medal{transform:translateY(-3px)}
+.small-medal,.locked-medal{display:block;overflow:hidden;background:linear-gradient(135deg,#30444b,#1b303e 66%);border:1px dashed #83958d;border-radius:8px}
+.small-medal{position:relative;width:clamp(57px,min(9.6vw,13.4dvh),116px);aspect-ratio:5/7;transition:transform .16s;margin-bottom:3px}
+.small-medal::before{border-color:#9fa9a525}
+.slot-orbit{opacity:.34}
+.slot-hero{width:82%;left:9%;top:18%;filter:brightness(0) invert(.45);opacity:.63}
+.slot-no{position:absolute;left:10%;bottom:5%;font-size:clamp(10px,2dvh,17px);font-style:italic;color:#b2bbb3}
+.slot-seal{position:absolute;width:17%;aspect-ratio:1;right:6%;top:5%;font-size:9px;filter:grayscale(1);opacity:.3}
+.earned .small-medal{border:1px solid #d8e7cd;background:linear-gradient(126deg,transparent 25%,#a1c8d359 37%,#a6eac332 42%,transparent 54%),linear-gradient(150deg,var(--ink),#0c1d2c);box-shadow:0 2px 0 #7a8d8e,0 4px 10px #00111f73}
+.earned .slot-hero{filter:drop-shadow(0 2px 3px #081621);opacity:1}.earned .slot-orbit,.earned .slot-seal{opacity:1;filter:none}
+.earned .slot-no{color:#f2e6c8}
+.slot-title{font-weight:780;font-size:clamp(13px,2.05dvh,19px);line-height:1.22}.earned .slot-title{color:#f1f4e6}
+.slot-state{font-size:clamp(11px,1.6dvh,14px);line-height:1.15;color:#a2b3b1}.earned .slot-state{color:#ddcda8}
+.slot-count{position:absolute;right:4%;bottom:5%;border-radius:9px;background:#f4d79d;color:#293441;padding:1px 4px;font-weight:800;font-size:12px}
+#wall-detail{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:clamp(14px,4vw,60px);padding:10px clamp(21px,7vw,100px);overflow:auto}
+.award-actions #win-menu{background:transparent;border-color:transparent}
+@media(min-height:471px){#wall-grid{min-height:100%;grid-auto-rows:minmax(0,1fr)}.small-medal{width:clamp(45px,min(10.3vw,calc(16dvh - 30px)),108px)}.medal-slot{justify-content:center;padding-block:6px 11px}}
+.detail-copy button{margin:5px 5px 0 0}.locked-medal .locked-number{position:absolute;left:10%;bottom:9%;font-size:clamp(17px,3.2dvh,30px);color:#b9c5ba}
+@media(max-height:470px){#medal-wall{height:96dvh}.award-panel{gap:14px;padding:9px 21px}.gallery-heading{padding-block:6px}.park-collections button:is(#wall-open,#shelf-open){font-size:14px;padding:6px 9px;min-height:38px;border-radius:12px}.award-actions button,.detail-copy button{min-height:36px;padding:4px 9px}.foil-card,.locked-medal{width:min(100%,44dvh)}.medal-gesture{margin:.3em 0 .5em}}
+@media(prefers-reduced-motion:reduce){.just-earned .foil-card{animation:none}.medal-body,.foil-card.is-flipped .medal-body,.foil-card:not(:active):not(.is-gaze) .medal-body,.small-medal{transition:none}}
