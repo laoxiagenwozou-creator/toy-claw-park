@@ -6,14 +6,37 @@ import {REQUESTS} from './requests.js';
 import {takeToy,moveToy,acceptRequest} from './keepsakes.js';
 import {changeBoard,syncShelves} from './stock.js';
 import {createToyView,playLabel} from './toy-view.js';
+import {dockSpriteUrl,toyPortraitUrl} from './scene-art.js';
 
 const $=id=>document.getElementById(id);
 const catalog=Object.values(POOLS).flat();
+const ORIG_TOY_COUNT=76,ORIG_STAGE_COUNT=12;
 function portrait(node,kind){
   const index=catalog.indexOf(kind);
-  node.style.backgroundImage='url('+atlas+')';
-  node.style.backgroundSize='800% '+Math.ceil(catalog.length/8)*100+'%';
-  node.style.backgroundPosition=(index%8)*100/7+'% '+Math.floor(index/8)*100/(Math.ceil(catalog.length/8)-1)+'%';
+  if(index>=0&&index<ORIG_TOY_COUNT){
+    const rows=Math.ceil(ORIG_TOY_COUNT/8);
+    node.style.backgroundImage='url('+atlas+')';
+    node.style.backgroundSize='800% '+(rows*100)+'%';
+    node.style.backgroundPosition=(index%8)*100/7+'% '+Math.floor(index/8)*100/(rows-1)+'%';
+  }else{
+    node.style.backgroundImage='url("'+toyPortraitUrl(kind)+'")';
+    node.style.backgroundSize='contain';
+    node.style.backgroundPosition='center';
+  }
+}
+function applyDock(el,sid,index,asVar=false){
+  if(index>=0&&index<ORIG_STAGE_COUNT){
+    el.style.backgroundImage='url('+docks+')';
+    el.style.backgroundSize=(ORIG_STAGE_COUNT*100)+'% 200%';
+    const pos=(index*100/(ORIG_STAGE_COUNT-1))+'%';
+    if(asVar)el.style.setProperty('--dock-x',pos);
+    else el.style.backgroundPosition=pos+' 0%';
+  }else{
+    el.style.backgroundImage='url("'+dockSpriteUrl(sid)+'")';
+    el.style.backgroundSize='100% 200%';
+    if(asVar)el.style.setProperty('--dock-x','0%');
+    else el.style.backgroundPosition='0% 0%';
+  }
 }
 export function createPlayroom(boards,sound,gameStage,available,stopMovement){
   const dialog=$('playroom'),door=$('outlet'),canvas=$('toy-view'),mission=$('request-open');
@@ -117,9 +140,7 @@ export function createPlayroom(boards,sound,gameStage,available,stopMovement){
 
       const landmark=document.createElement('div');landmark.className='tier-landmark';
       const emblem=document.createElement('span');emblem.className='landmark-icon';emblem.setAttribute('aria-hidden','true');
-      emblem.style.backgroundImage='url('+docks+')';
-      emblem.style.backgroundSize=stageIds.length*100+'% 200%';
-      emblem.style.backgroundPosition=(index*100/(stageIds.length-1))+'% 0%';
+      applyDock(emblem,sid,index,false);
       const name=document.createElement('strong');name.className='landmark-name';name.textContent=t.name;
       const meta=document.createElement('span');meta.className='landmark-meta';
       meta.textContent=uniqueOwned>=poolCount?'★ '+uniqueOwned+'/'+poolCount:uniqueOwned+' / '+poolCount;
@@ -185,8 +206,7 @@ export function createPlayroom(boards,sound,gameStage,available,stopMovement){
     $('park-label').textContent=delivery?recipe().place:stage==='town'?'车库':'玩具架';
     const dock=$('park-target').querySelector('.dock-model');
     const stages=Object.keys(THEMES);
-    dock.style.backgroundImage='url('+docks+')';dock.style.backgroundSize=stages.length*100+'% 200%';
-    dock.style.setProperty('--dock-x',stages.indexOf(stage)*100/(stages.length-1)+'%');
+    applyDock(dock,stage,stages.indexOf(stage),true);
     $('park-target').setAttribute('aria-label',$('place-toy').textContent);
     const pos=s.order.indexOf(kind);
     $('move-left').hidden=$('move-right').hidden=pending||s.order.length<2;

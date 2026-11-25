@@ -5,7 +5,11 @@ const aluminum=paint('#adb5c5','chrome'),bright=paint('#f6f1e7','chrome'),gasket
 const trim=paint('#8da1b2','satin'),ivory=paint('#f3ede0');
 const tickLight=paint('#ffe9a8','enamel'),tickDark=paint('#5a6c7e','satin');
 const carpets={snow:'#31727d',road:'#638189',paw:'#5a8184',sun:'#809774',leaf:'#7e9f8e',wave:'#649b9b',star:'#748096',
-  rainbow:'#9880a7',hill:'#72a692',shield:'#6f929d',nest:'#879973',web:'#7484a2'};
+  rainbow:'#9880a7',hill:'#72a692',shield:'#6f929d',nest:'#879973',web:'#7484a2',
+  recycle:'#578c73',dino:'#8c7e58',construct:'#8f7e62',train:'#687c86',farm:'#72915c',
+  bakery:'#b28594',fruit:'#79965c',kitchen:'#9c7d63',bamboo:'#5e8f70',insect:'#6a9668',
+  safari:'#9d8052',polar:'#558ca4',castle:'#8c7ca6',pirate:'#568494',robot:'#566d8c',
+  music:'#7b6294',sports:'#548c62',camp:'#4d6c75',circus:'#9e696d',amusement:'#8f7399'};
 
 let ceilingTex;
 function ceilingTexture(){

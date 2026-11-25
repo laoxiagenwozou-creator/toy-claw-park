@@ -13,13 +13,13 @@ const {gameHtml,qaDir}=require('./paths.cjs'),seed=require('./medal-fixture.json
     const stored=()=>page.evaluate(()=>localStorage.getItem('toy-park-v2'));
     const count=async id=>JSON.parse(await stored())[id].clears;
     await page.goto(pathToFileURL(gameHtml).href);
-    await tap('#wall-open');assert.match(await one('#wall-summary').innerText(),/0 \/ 12 款.*共 0 枚/);
-    assert.equal(await one('.medal-slot').count(),12);await tap('.medal-slot[data-stage=spidey]');
+    await tap('#wall-open');assert.match(await one('#wall-summary').innerText(),/0 \/ 32 款.*共 0 枚/);
+    assert.equal(await one('.medal-slot').count(),32);await tap('.medal-slot[data-stage=spidey]');
     assert.match(await one('#wall-caption').innerText(),/抓满 6 件/);await tap('#wall-play');
     await one('#menu-button:enabled').waitFor();assert.equal(await one('#machine').getAttribute('data-stage'),'spidey');
     assert.equal(await stored(),null);await tap('#menu-button');
     await page.evaluate(seed=>localStorage.setItem('toy-park-v2',JSON.stringify(seed)),seed);await page.reload();
-    await tap('#wall-open');assert.match(await one('#wall-summary').innerText(),/5 \/ 12 款.*共 6 枚/);
+    await tap('#wall-open');assert.match(await one('#wall-summary').innerText(),/5 \/ 32 款.*共 6 枚/);
     const before=await stored();await tap('.medal-slot[data-stage=town]');
     await tap('#wall-medal button');assert.equal(await one('#wall-medal button').getAttribute('aria-pressed'),'true');
     assert.match(await one('#wall-medal .medal-back-earned').innerText(),/2 次/);
@@ -27,7 +27,7 @@ const {gameHtml,qaDir}=require('./paths.cjs'),seed=require('./medal-fixture.json
     await tap('.stage-card[data-stage=snow]');await one('#grab:enabled').waitFor();await tap('#grab');
     await one('#win').waitFor({timeout:30000});assert.equal(await count('snow'),1);assert.match(await one('#win-note').innerText(),/第一次通关/);
     await page.waitForTimeout(650);await shot('first-medal');
-    await tap('#win-wall');assert.match(await one('#wall-summary').innerText(),/6 \/ 12 款.*共 7 枚/);await shot('achievement-wall');
+    await tap('#win-wall');assert.match(await one('#wall-summary').innerText(),/6 \/ 32 款.*共 7 枚/);await shot('achievement-wall');
     await tap('.medal-slot[data-stage=snow]');const card=one('#wall-medal button'),r=await card.boundingBox();
     const x=r.x+r.width*.5,y=r.y+r.height*.48;await page.mouse.move(x,y);await page.mouse.down();
     await page.mouse.move(x+r.width*.34,y-r.height*.27,{steps:8});
@@ -55,8 +55,8 @@ const {gameHtml,qaDir}=require('./paths.cjs'),seed=require('./medal-fixture.json
       for(const b of Object.values(data))b.clears=1;localStorage.setItem('toy-park-v2',JSON.stringify(data));});
     await page.reload();await tap('#wall-open');const rows=await one('.medal-slot').evaluateAll(els=>els.map(e=>[
       e.dataset.stage,e.querySelector('.slot-state').textContent,getComputedStyle(e).getPropertyValue('--atlas-x')+','+getComputedStyle(e).getPropertyValue('--atlas-y')]));
-    assert.equal(new Set(rows.map(r=>r[1])).size,12);assert.equal(new Set(rows.map(r=>r[2])).size,12);
-    assert.match(await one('#wall-summary').innerText(),/12 \/ 12 款.*共 12 枚/);
+    assert.equal(new Set(rows.map(r=>r[1])).size,32);assert.equal(new Set(rows.map(r=>r[2])).size,32);
+    assert.match(await one('#wall-summary').innerText(),/32 \/ 32 款.*共 32 枚/);
     await page.setViewportSize({width:1100,height:690});await shot('all-designs');
     assert.deepEqual(errors,[]);assert.deepEqual(remote,[]);
     fs.writeFileSync(path.join(qaDir,'medal-tests.json'),JSON.stringify({designs:rows,initial:'0/12',history:'5 designs, 6 medals',

@@ -21,6 +21,10 @@ const domeColors = {
   snow:'#72a7e5', road:'#6ea9c4', paw:'#5e9bd4', sun:'#7ab88e', leaf:'#7cb89a',
   wave:'#5db1c4', star:'#8388d0', rainbow:'#b588d2', hill:'#7cb88b',
   shield:'#649ec4', nest:'#9cb86e', web:'#7584c8',
+  recycle:'#58b878', dino:'#c89d54', construct:'#e5ac38', train:'#c8645a', farm:'#78b862',
+  bakery:'#e88ca5', fruit:'#88bf58', kitchen:'#de9254', bamboo:'#5eb57a', insect:'#7bc268',
+  safari:'#d99b4e', polar:'#64b8de', castle:'#b48ce2', pirate:'#54a4bd', robot:'#6898d8',
+  music:'#a878d4', sports:'#5eb874', camp:'#608cb0', circus:'#de6868', amusement:'#d684b5',
 };
 
 function metallicDome(color) {
@@ -89,13 +93,16 @@ function supplyHatch(scene){
 const textures=new Map();
 const loader=new THREE.TextureLoader();
 function wallTexture(theme){
-  if(!textures.has(theme))textures.set(theme,loader.loadAsync(theme.bg).then(texture=>{
-    texture.colorSpace=THREE.SRGBColorSpace;
-    const aspect=texture.image.width/texture.image.height,wallAspect=10.66/(ROOF+.04);
-    texture.repeat.set(Math.min(1,wallAspect/aspect),Math.min(1,aspect/wallAspect));
-    texture.offset.set((1-texture.repeat.x)/2,(1-texture.repeat.y)/2);
-    return texture;
-  }).catch(error=>{textures.delete(theme);throw error;}));
+  if(!textures.has(theme)){
+    const loaded=typeof theme.bg==='function'?Promise.resolve(theme.bg()):loader.loadAsync(theme.bg);
+    textures.set(theme,loaded.then(texture=>{
+      texture.colorSpace=THREE.SRGBColorSpace;
+      const aspect=texture.image.width/texture.image.height,wallAspect=10.66/(ROOF+.04);
+      texture.repeat.set(Math.min(1,wallAspect/aspect),Math.min(1,aspect/wallAspect));
+      texture.offset.set((1-texture.repeat.x)/2,(1-texture.repeat.y)/2);
+      return texture;
+    }).catch(error=>{textures.delete(theme);throw error;}));
+  }
   return textures.get(theme);
 }
 

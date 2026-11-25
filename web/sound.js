@@ -1,5 +1,6 @@
 import musicBytes from './assets/arcade-theme.ogg';
 import {assetBuffer} from './asset-bytes.js';
+import {REQUESTS} from './requests.js';
 
 import snowVoice from './assets/request-snow.ogg';
 import townVoice from './assets/request-town.ogg';
@@ -30,12 +31,30 @@ export function createSound(){
   function stopSpeech(){
     ++speechTicket;
     if(speech){speech.onended=null;speech.stop();speech.disconnect();speech=null;}
-    if(music)music.gain.gain.setTargetAtTime(.31,ctx.currentTime,.09);
+    try{window.speechSynthesis?.cancel?.();}catch{}
+    if(music&&ctx)music.gain.gain.setTargetAtTime(.31,ctx.currentTime,.09);
   }
   async function readRequest(stage){
     stopSpeech();if(!options.music&&!options.effects)return false;
     unlock();if(!ctx||!visible())return false;
     const ticket=speechTicket;
+    if(!voiceFiles[stage]){
+      const line=REQUESTS[stage]?.line;
+      if(!line)return false;
+      try{
+        if(ctx.state!=='running')await ctx.resume();
+        if(window.speechSynthesis&&typeof SpeechSynthesisUtterance!=='undefined'){
+          const utter=new SpeechSynthesisUtterance(line);
+          utter.lang='zh-CN';utter.rate=.96;utter.pitch=1.08;
+          if(music)music.gain.gain.setTargetAtTime(.09,ctx.currentTime,.045);
+          utter.onend=utter.onerror=()=>{if(ticket===speechTicket&&music&&ctx)music.gain.gain.setTargetAtTime(.31,ctx.currentTime,.09);};
+          window.speechSynthesis.speak(utter);
+          return true;
+        }
+      }catch{}
+      effect('dock');
+      return true;
+    }
     try{
       if(ctx.state!=='running')await ctx.resume();
       if(!voices.has(stage))voices.set(stage,assetBuffer(voiceFiles[stage]).then(bytes=>ctx.decodeAudioData(bytes)));

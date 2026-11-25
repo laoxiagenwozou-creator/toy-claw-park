@@ -142,7 +142,7 @@ function run(){
   const cards=new Map();
   for(const [id,theme] of Object.entries(THEMES)){
     const button=document.createElement('button');button.className='stage-card';button.type='button';button.dataset.stage=id;
-    const img=document.createElement('img');img.alt='';img.src=theme.card;
+    const img=document.createElement('img');img.alt='';img.src=typeof theme.card==='function'?theme.card():theme.card;
     button.style.setProperty('--theme-color',theme.base);
     const label=document.createElement('span');label.className='card-label';
     const title=document.createElement('strong');title.textContent=theme.name;

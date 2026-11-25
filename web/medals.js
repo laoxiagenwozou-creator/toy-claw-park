@@ -3,6 +3,7 @@ import {MEDALS} from './medal-series.js';
 import {PRIZES} from './library.js';
 import {THEMES} from './themes.js';
 import {syncBoards} from './stock.js';
+import {medalUrl} from './scene-art.js';
 
 const $=id=>document.getElementById(id);
 const clamp=(n,lo,hi)=>Math.max(lo,Math.min(hi,n));
@@ -18,8 +19,16 @@ function span(className,words){
 function tint(el,id){
   const {number,ink,foil}=MEDALS[id],index=number-1;
   el.style.setProperty('--ink',ink);el.style.setProperty('--foil',foil);
-  el.style.setProperty('--atlas-x',(index%4)*100/3+'%');
-  el.style.setProperty('--atlas-y',Math.floor(index/4)*50+'%');
+  if(number<=12){
+    el.classList.remove('custom-medal');
+    el.style.setProperty('--atlas-x',(index%4)*100/3+'%');
+    el.style.setProperty('--atlas-y',Math.floor(index/4)*50+'%');
+  }else{
+    el.classList.add('custom-medal');
+    el.style.setProperty('--medal-art','url("'+medalUrl(id)+'")');
+    el.style.setProperty('--atlas-x',((index%8)*14).toFixed(2)+'%');
+    el.style.setProperty('--atlas-y',(Math.floor(index/8)*30).toFixed(2)+'%');
+  }
 }
 function constellation(id){
   const grid=span('medal-dots');

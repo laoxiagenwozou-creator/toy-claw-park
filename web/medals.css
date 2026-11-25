@@ -34,6 +34,7 @@ button.award-primary{background:var(--gold);border-color:#ffe6ae;color:#2b3c3f}
 .medal-sheen::after{content:"";position:absolute;inset:0;background:linear-gradient(114deg,transparent 22%,#87b7f00e 31%,var(--foil) 43%,#e7c1f796 47%,#7bd3b938 53%,transparent 63%) var(--glint-x) center/185% 100%;opacity:.30}
 .foil-card.is-gaze .medal-sheen::after{opacity:.38}
 .medal-hero,.slot-hero{position:absolute;background-image:var(--medal-atlas);background-position:var(--atlas-x) var(--atlas-y);background-size:400% 300%;background-repeat:no-repeat;aspect-ratio:1}
+.custom-medal .medal-hero,.custom-medal .slot-hero{background-image:var(--medal-art);background-position:center;background-size:contain}
 .medal-hero{width:77%;left:11.5%;top:15%;transform:translate(calc(var(--pan-x)*1.45),calc(var(--pan-y)*1.35)) scale(1.03);filter:drop-shadow(calc(var(--pan-x)*-.55) calc(7px - var(--pan-y)*.45) 7px #050d22b5)}
 .medal-cam-btn[aria-pressed=true]{background:#1f6a64;border-color:#93e5d2;color:#f3fffb;box-shadow:0 0 0 1px #93e5d255}
 .medal-imprint,.medal-name,.medal-stage,.medal-serial,.medal-back-no,.medal-back-number,.medal-back-name,.medal-back-earned,.medal-dots,.medal-seal{position:absolute;z-index:2}
@@ -44,7 +45,7 @@ button.award-primary{background:var(--gold);border-color:#ffe6ae;color:#2b3c3f}
 .medal-stage{left:8%;bottom:17.1%;font-size:clamp(9px,4.8cqw,16px);font-weight:650;color:#c6dcd8}
 .medal-serial,.medal-back-no,.medal-back-number,.slot-no,.locked-number{font-family:Georgia,'Times New Roman',serif;font-variant-numeric:lining-nums tabular-nums}
 .medal-serial{bottom:5.1%;left:8%;font-size:clamp(13px,8.2cqw,28px);font-style:italic;color:#f6ead1}
-.medal-dots{right:8%;bottom:7%;display:grid;width:19%;grid-template-columns:repeat(6,1fr);gap:2px}
+.medal-dots{right:8%;bottom:6.5%;display:grid;width:24%;grid-template-columns:repeat(8,1fr);gap:1.5px}
 .medal-dots span{aspect-ratio:1;border-radius:50%;background:#719399}.medal-dots .lit{background:#f9df9b;box-shadow:0 0 3px #f1dfa2}
 .medal-back-no{left:8%;top:27%;font-size:8cqw;font-style:italic;color:var(--foil)}
 .medal-back-number{left:6.5%;top:30%;font-size:38cqw;line-height:1.1;letter-spacing:-.07em;color:#ebf2e6}
@@ -78,7 +79,7 @@ button.award-primary{background:var(--gold);border-color:#ffe6ae;color:#2b3c3f}
 .slot-count{position:absolute;right:4%;bottom:5%;border-radius:9px;background:#f4d79d;color:#293441;padding:1px 4px;font-weight:800;font-size:12px}
 #wall-detail{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:clamp(14px,4vw,60px);padding:10px clamp(21px,7vw,100px);overflow:auto}
 .award-actions #win-menu{background:transparent;border-color:transparent}
-@media(min-height:471px){#wall-grid{min-height:100%;grid-auto-rows:minmax(0,1fr)}.small-medal{width:clamp(45px,min(10.3vw,calc(16dvh - 30px)),108px)}.medal-slot{justify-content:center;padding-block:6px 11px}}
+@media(min-height:471px){#wall-grid{grid-auto-rows:auto}.small-medal{width:clamp(54px,min(10.3vw,13.5dvh),108px)}.medal-slot{justify-content:center;padding-block:10px 15px}}
 .detail-copy button{margin:5px 5px 0 0}.locked-medal .locked-number{position:absolute;left:10%;bottom:9%;font-size:clamp(17px,3.2dvh,30px);color:#b9c5ba}
 @media(max-height:470px){#medal-wall{height:96dvh}.award-panel{gap:14px;padding:9px 21px}.gallery-heading{padding-block:6px}.park-collections button:is(#wall-open,#shelf-open){font-size:14px;padding:6px 9px;min-height:38px;border-radius:12px}.award-actions button,.detail-copy button{min-height:36px;padding:4px 9px}.foil-card,.locked-medal{width:min(100%,44dvh)}.medal-gesture{margin:.3em 0 .5em}}
 @media(prefers-reduced-motion:reduce){.just-earned .foil-card{animation:none}.medal-body,.foil-card.is-flipped .medal-body,.foil-card:not(:active):not(.is-gaze) .medal-body,.small-medal{transition:none}}
