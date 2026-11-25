@@ -198,7 +198,8 @@ export function createMedalWall(boards,enter,camera={},onWallClose=()=>{}){
       const card=activeCard();
       if(!card)return;
       if(!tracking){card.clearGaze();return;}
-      const nx=clamp(gaze.x/4.8,-1,1),ny=clamp(-gaze.y/1.85,-1,1);
+      const gain=gaze.depth===3?1.85:gaze.depth===2?1.40:1.0;
+      const nx=clamp(gaze.x*gain/4.8,-1,1),ny=clamp(-gaze.y*gain/1.85,-1,1);
       card.applyGaze(nx,ny);
     }
   };

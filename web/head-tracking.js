@@ -58,9 +58,9 @@ export function headTracker(){
     // Scale against the eye separation captured at calibration. Turning one's head
     // changes the current separation and must not change the lateral sensitivity.
     const restingSpan=clamp(Math.exp(origin.log),.052,.24);
-    const lateralDeadband=restingSpan*.005;
-    const filteredX=euroStep(x,liveX,dt,2.6,20);
-    const filteredY=euroStep(y,liveY,dt,2.2,18);
+    const lateralDeadband=restingSpan*.0055;
+    const filteredX=euroStep(x,liveX,dt,3.0,24);
+    const filteredY=euroStep(y,liveY,dt,2.6,20);
     x=Math.abs(liveX-origin.x)<=lateralDeadband?origin.x:deadband(x,filteredX,lateralDeadband*.4);
     y=deadband(y,filteredY,.0012);
     const eyeWidths=(x-origin.x)/restingSpan;

@@ -69,6 +69,14 @@
             <button class="glass-key" id="camera" type="button" aria-pressed="false" hidden>
               <i class="camera-glyph" aria-hidden="true"></i><span id="camera-label">开启探头</span>
             </button>
+            <div class="depth-control" role="group" aria-label="裸眼 3D 灵敏度">
+              <div class="depth-head"><span>3D 灵敏度</span><output id="depth-level">增强</output></div>
+              <div class="depth-pills">
+                <button type="button" class="depth-pill" data-depth="1" aria-pressed="false">标准</button>
+                <button type="button" class="depth-pill" data-depth="2" aria-pressed="true">增强</button>
+                <button type="button" class="depth-pill" data-depth="3" aria-pressed="false">超强</button>
+              </div>
+            </div>
             <button class="glass-key center" id="center" type="button" aria-label="视角回正" title="视角回正">
               <i class="center-glyph" aria-hidden="true"></i><span id="center-label">视角回正</span>
             </button>

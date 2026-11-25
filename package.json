@@ -1,6 +1,6 @@
 {
   "name": "toy-claw-park",
-  "version": "2.13.0",
+  "version": "2.13.1",
   "private": true,
   "description": "离线多主题裸眼 3D 抓娃娃机（macOS / iOS / iPadOS / 浏览器离线单文件）",
   "scripts": {

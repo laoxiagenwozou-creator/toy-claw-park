@@ -91,8 +91,35 @@ export function bindControls({
   bindDeckButton($('coin-insert'),insertCoin);
   bindDeckButton($('restock'),restock);
 
-  const gaze={x:0,y:0,distance:1};
-  const target={...gaze};
+  const depthKey='toy-park-3d-depth';
+  let depthLevel=2;
+  try{
+    const saved=Number(localStorage.getItem(depthKey));
+    if(saved===1||saved===2||saved===3)depthLevel=saved;
+  }catch{/* Use default enhanced 3D strength when storage is unavailable. */}
+  const gaze={x:0,y:0,distance:1,depth:depthLevel};
+  const target={x:0,y:0,distance:1};
+  let depthChanged=false;
+  const depthLabels={1:'标准',2:'增强',3:'超强'};
+  function syncDepthUI(){
+    const label=$('depth-level');
+    if(label)label.textContent=depthLabels[depthLevel];
+    for(const btn of document.querySelectorAll('.depth-pill')){
+      const active=Number(btn.dataset.depth)===depthLevel;
+      btn.setAttribute('aria-pressed',String(active));
+    }
+  }
+  for(const btn of document.querySelectorAll('.depth-pill')){
+    btn.addEventListener('click',()=>{
+      const next=Number(btn.dataset.depth);
+      if(next!==1&&next!==2&&next!==3)return;
+      depthLevel=next;gaze.depth=next;depthChanged=true;
+      syncDepthUI();
+      try{localStorage.setItem(depthKey,String(next));}catch{}
+      if(!tracking)temporaryNotice('3D 灵敏度：'+depthLabels[next]);
+    });
+  }
+  syncDepthUI();
   let tracking=false;
   const hasCamera = typeof window.BudNative?.setCameraEnabled === 'function';
   let trackingWanted=hasCamera;
@@ -222,14 +249,15 @@ export function bindControls({
     } else if(noticeUntil && now>=noticeUntil) {
       noticeUntil=0; viewStatus('','manual');
     }
-    let moving=false;
+    let moving=depthChanged;
+    depthChanged=false;
     for(const axis of ['x','y','distance']) {
       const delta=target[axis]-gaze[axis];
       if(delta!==0) {
-        const speed=tracking?(axis==='x'?64:axis==='y'?56:6.5):28;
+        const speed=tracking?(axis==='x'?72:axis==='y'?62:6.8):28;
         let step=delta*(1-Math.exp(-dt*speed));
         if(tracking){
-          const maxStep=dt*(axis==='x'?95:axis==='y'?64:.72);
+          const maxStep=dt*(axis==='x'?120:axis==='y'?80:.80);
           step=clamp(step,-maxStep,maxStep);
         }
         gaze[axis]=Math.abs(delta)<0.0003?target[axis]:gaze[axis]+step;

@@ -8,6 +8,13 @@ import {CHUTE} from './playfield.js';
 // elevated viewing angle open the full floor depth while delivering dramatic
 // off-axis naked-eye 3D parallax as the player leans left, right, or up.
 const frontZ=3.025,restEye=10.8,eyeAboveCenter=2.32;
+// Adjustable 3D parallax presets so younger kids with smaller head movements
+// still get bold, wide-range naked-eye 3D stereopsis.
+const DEPTH_PRESETS={
+  1:{gainX:1.18,gainY:1.15,maxX:8.6,minY:-2.4,maxY:3.8,restScale:1.0},
+  2:{gainX:1.75,gainY:1.60,maxX:12.2,minY:-3.0,maxY:5.0,restScale:1.0},
+  3:{gainX:2.45,gainY:2.15,maxX:15.2,minY:-3.5,maxY:6.0,restScale:.89},
+};
 
 // Keep joystick axes strictly aligned to the physical X/Z gantry rails even
 // when leaning sideways, so side-peeking never pulls the claw off-line.
@@ -118,7 +125,7 @@ export function createChamber(canvas, viewport) {
     for(const [id,bay] of cabinets){
       const slot=nearestSlot(ids.indexOf(id),position),offset=slot-position;
       bay.root.position.x=slot*pitch;
-      bay.root.visible=Math.abs(offset)<1.9;
+      bay.root.visible=Math.abs(offset)<2.2;
       if(bay.root.visible&&(inTransit||bay!==active))bay.park(offset);
     }
     const anchor=Math.round(position);
@@ -141,6 +148,8 @@ export function createChamber(canvas, viewport) {
     for(let slot=Math.floor(Math.min(from,to))-1;slot<=Math.ceil(Math.max(from,to))+1;slot++)needed.add(ids[indexAt(slot)]);
     const bays=await Promise.all([...needed].map(key=>ensure(key,boards)));
     bays.forEach(bay=>bay.sync());
+    // Warm up outer ±2 neighbor bays in the background so wide-angle 3D peeking never hits an empty void.
+    for(const d of [-2,2])ensure(ids[indexAt(to+d)],boards).then(bay=>{bay.sync();move(position);}).catch(()=>{});
     renderer.shadowMap.needsUpdate=true;
     active=cabinets.get(id);active.setGate(0);visited=true;inTransit=true;move(from);
     return {from,to};
@@ -174,8 +183,11 @@ export function createChamber(canvas, viewport) {
     }
     // Move the complete eye and projection window along the aisle together.
     // Only the player's motion offsets the eye relative to that window.
-    const distance=restEye*gaze.distance;
-    const eyeX=gaze.x*1.18,eyeY=eyeAboveCenter+gaze.y*1.15,near=.18,k=near/distance;
+    const preset=DEPTH_PRESETS[gaze.depth]||DEPTH_PRESETS[2];
+    const distance=restEye*preset.restScale*gaze.distance;
+    const eyeX=THREE.MathUtils.clamp(gaze.x*preset.gainX,-preset.maxX,preset.maxX);
+    const eyeY=eyeAboveCenter+THREE.MathUtils.clamp(gaze.y*preset.gainY,preset.minY,preset.maxY);
+    const near=.18,k=near/distance;
     camera.position.set(position*pitch+eyeX,height/2-.07+eyeY,frontZ+distance);
     camera.projectionMatrix.makePerspective((-width/2-eyeX)*k,(width/2-eyeX)*k,
       (height/2-eyeY)*k,(-height/2-eyeY)*k,near,90);
