@@ -11,7 +11,7 @@ const {chromium}=require('playwright');
     page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
     page.on('request',r=>{if(/^https?:/.test(r.url()))external.push(r.url());});
     await page.goto(pathToFileURL(gameHtml).href);
-    await page.locator('.stage-card').last().waitFor();assert.equal(await page.locator('.stage-card').count(),32);
+    await page.locator('.stage-card').last().waitFor();assert.equal(await page.locator('.stage-card').count(),52);
     await page.screenshot({path:path.join(qaDir,'menu.png')});
     await page.locator('#credits-button').tap();assert.match(await page.locator('.credits').innerText(),/DonaldDucc/);await page.locator('#credits-close').tap();
     for(const id of ['yard','lookout','town','garden','reef','space','pony','peppa','sheriff','chicks','spidey','snow']){

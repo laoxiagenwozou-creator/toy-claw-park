@@ -9,7 +9,11 @@ const carpets={snow:'#31727d',road:'#638189',paw:'#5a8184',sun:'#809774',leaf:'#
   recycle:'#578c73',dino:'#8c7e58',construct:'#8f7e62',train:'#687c86',farm:'#72915c',
   bakery:'#b28594',fruit:'#79965c',kitchen:'#9c7d63',bamboo:'#5e8f70',insect:'#6a9668',
   safari:'#9d8052',polar:'#558ca4',castle:'#8c7ca6',pirate:'#568494',robot:'#566d8c',
-  music:'#7b6294',sports:'#548c62',camp:'#4d6c75',circus:'#9e696d',amusement:'#8f7399'};
+  music:'#7b6294',sports:'#548c62',camp:'#4d6c75',circus:'#9e696d',amusement:'#8f7399',
+  airport:'#608094',hospital:'#669696',firehouse:'#8c605c',harbor:'#587a92',school:'#8c825a',
+  festival:'#965252',egypt:'#9e8254',sakura:'#a47a8e',desert:'#946e4e',aquarium:'#467e9c',
+  artstudio:'#927a64',icecreamshop:'#a67c8e',petshop:'#967a62',greenhouse:'#608c68',library:'#7c6250',
+  cloudland:'#6c92b0',halloween:'#5e4e7c',christmas:'#587c94',gemmine:'#5c5482',superhero:'#5e6c82'};
 
 let ceilingTex;
 function ceilingTexture(){

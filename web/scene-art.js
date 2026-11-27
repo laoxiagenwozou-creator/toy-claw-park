@@ -491,6 +491,321 @@ function drawScene(ctx,w,h,id){
       hill(ctx,w,h,h*.75,h*.03,2.2,.5,'#89ca84');
       break;
     }
+    case 'airport':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#4aa2e6'],[.55,'#b8e4fa'],[1,'#d4e0e8']]);ctx.fillRect(0,0,w,h);
+      sunGlow(ctx,w*.84,h*.18,w*.052);
+      cloud(ctx,w*.20,h*.18,w*.08);cloud(ctx,w*.56,h*.14,w*.07);
+      // Terminal building + glass concourse + control tower
+      ctx.fillStyle='#e8eff5';rr(ctx,w*.12,h*.48,w*.54,h*.26,14);ctx.fill();
+      ctx.fillStyle='#7ec4ea';rr(ctx,w*.16,h*.54,w*.46,h*.14,8);ctx.fill();
+      ctx.fillStyle='#dce6ee';rr(ctx,w*.74,h*.26,w*.07,h*.48,6);ctx.fill();
+      ctx.fillStyle='#2f74b8';rr(ctx,w*.69,h*.18,w*.17,h*.12,10);ctx.fill();
+      ctx.fillStyle='#9ee0fa';rr(ctx,w*.71,h*.21,w*.13,h*.06,4);ctx.fill();
+      // Distant airplane taking off
+      ctx.fillStyle='#fff';ctx.beginPath();ctx.ellipse(w*.38,h*.26,w*.07,h*.022,-.18,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#ef5a52';ctx.beginPath();ctx.moveTo(w*.32,h*.27);ctx.lineTo(w*.30,h*.22);ctx.lineTo(w*.35,h*.26);ctx.closePath();ctx.fill();
+      // Runway tarmac & dashed centerline
+      ctx.fillStyle='#5c6c78';ctx.fillRect(0,h*.72,w,h*.28);
+      ctx.fillStyle='#fff6d8';for(let i=0;i<8;i++)ctx.fillRect(w*(.04+i*.13),h*.82,w*.07,8);
+      break;
+    }
+    case 'hospital':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#76c4ec'],[.55,'#d4f0fa'],[1,'#a8db9a']]);ctx.fillRect(0,0,w,h);
+      sunGlow(ctx,w*.18,h*.18,w*.052);cloud(ctx,w*.74,h*.16,w*.075);
+      hill(ctx,w,h,h*.70,h*.03,2.0,.4,'#8ec984');
+      // Friendly bright white clinic with red cross emblem
+      ctx.fillStyle='#fffaf2';rr(ctx,w*.20,h*.30,w*.60,h*.44,18);ctx.fill();
+      ctx.fillStyle='#4aa4d8';rr(ctx,w*.18,h*.27,w*.64,h*.06,12);ctx.fill();
+      // Red cross badge
+      ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(w*.50,h*.42,w*.065,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#e64545';ctx.fillRect(w*.50-w*.042,h*.42-h*.018,w*.084,h*.036);ctx.fillRect(w*.50-w*.015,h*.42-h*.050,w*.030,h*.10);
+      // Windows & arched entrance
+      ctx.fillStyle='#a8dff5';
+      for(const wx of [w*.26,w*.35,w*.60,w*.69])for(const wy of [h*.38,h*.52])rr(ctx,wx,wy,w*.06,h*.09,6),ctx.fill();
+      ctx.fillStyle='#6ac2b8';ctx.beginPath();ctx.arc(w*.50,h*.74,w*.065,Math.PI,0);ctx.fill();
+      ctx.fillStyle='#d4e2e6';ctx.fillRect(0,h*.74,w,h*.26);
+      break;
+    }
+    case 'firehouse':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#69b4e8'],[.55,'#c8e6f7'],[1,'#e6d9c2']]);ctx.fillRect(0,0,w,h);
+      sunGlow(ctx,w*.82,h*.18,w*.055);cloud(ctx,w*.24,h*.16,w*.075);
+      // Red brick firehouse + bell tower
+      ctx.fillStyle='#c9423a';rr(ctx,w*.16,h*.32,w*.68,h*.44,12);ctx.fill();
+      ctx.fillStyle='#a8322c';rr(ctx,w*.42,h*.16,w*.16,h*.20,8);ctx.fill();
+      ctx.fillStyle='#f4c842';ctx.beginPath();ctx.arc(w*.50,h*.26,w*.035,0,Math.PI*2);ctx.fill();
+      // Two wide garage bays
+      for(const gx of [w*.24,w*.54]){
+        ctx.fillStyle='#3c4a58';rr(ctx,gx,h*.50,w*.22,h*.26,10);ctx.fill();
+        ctx.fillStyle='#f2ede0';ctx.fillRect(gx+8,h*.52,w*.22-16,h*.05);
+      }
+      ctx.fillStyle='#6c7882';ctx.fillRect(0,h*.74,w,h*.26);
+      break;
+    }
+    case 'harbor':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#54a8e2'],[.52,'#b8e4f7'],[.64,'#2d82b5'],[1,'#4d6b80']]);ctx.fillRect(0,0,w,h);
+      sunGlow(ctx,w*.18,h*.18,w*.055);cloud(ctx,w*.52,h*.16,w*.08);
+      // Striped lighthouse on headland
+      ctx.fillStyle='#fffaf0';ctx.beginPath();ctx.moveTo(w*.14,h*.62);ctx.lineTo(w*.17,h*.28);ctx.lineTo(w*.23,h*.28);ctx.lineTo(w*.26,h*.62);ctx.closePath();ctx.fill();
+      ctx.fillStyle='#df433b';ctx.fillRect(w*.16,h*.36,w*.08,h*.08);ctx.fillRect(w*.15,h*.50,w*.10,h*.08);
+      ctx.fillStyle='#ffd662';ctx.beginPath();ctx.arc(w*.20,h*.24,w*.032,0,Math.PI*2);ctx.fill();
+      // Port gantry crane + colorful container stack
+      ctx.strokeStyle='#357ac0';ctx.lineWidth=10;ctx.strokeRect(w*.66,h*.28,w*.16,h*.36);
+      ctx.beginPath();ctx.moveTo(w*.52,h*.30);ctx.lineTo(w*.92,h*.30);ctx.stroke();
+      const cols=['#e3544a','#3894d6','#f2b832','#46a868'];
+      for(let i=0;i<4;i++){ctx.fillStyle=cols[i];rr(ctx,w*(.48+i*.095),h*.54,w*.088,h*.09,4);ctx.fill();}
+      ctx.fillStyle='#2a7eb0';ctx.fillRect(0,h*.62,w,h*.16);
+      ctx.fillStyle='#7c8a94';ctx.fillRect(0,h*.75,w,h*.25);
+      break;
+    }
+    case 'school':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#69c0ee'],[.52,'#cceef9'],[1,'#a6d482']]);ctx.fillRect(0,0,w,h);
+      sunGlow(ctx,w*.84,h*.18,w*.052);cloud(ctx,w*.24,h*.16,w*.075);
+      hill(ctx,w,h,h*.68,h*.035,2.0,.3,'#88c46e');
+      // Cheerful yellow & brick schoolhouse with clock gable
+      ctx.fillStyle='#f6d99a';rr(ctx,w*.18,h*.38,w*.64,h*.36,12);ctx.fill();
+      ctx.fillStyle='#d45a4a';ctx.beginPath();ctx.moveTo(w*.14,h*.40);ctx.lineTo(w*.50,h*.18);ctx.lineTo(w*.86,h*.40);ctx.closePath();ctx.fill();
+      ctx.fillStyle='#fff9e8';ctx.beginPath();ctx.arc(w*.50,h*.32,w*.045,0,Math.PI*2);ctx.fill();
+      ctx.strokeStyle='#2c3b4a';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(w*.50,h*.32);ctx.lineTo(w*.50,h*.285);ctx.moveTo(w*.50,h*.32);ctx.lineTo(w*.525,h*.33);ctx.stroke();
+      ctx.fillStyle='#96d8f2';
+      for(const wx of [w*.24,w*.34,w*.60,w*.70])rr(ctx,wx,h*.48,w*.065,h*.12,6),ctx.fill();
+      ctx.fillStyle='#8c5834';rr(ctx,w*.45,h*.54,w*.10,h*.20,8);ctx.fill();
+      bunting(ctx,w*.08,h*.28,w*.92,h*.28,10,['#ff6b6b','#ffd93d','#6bcb77','#4d96ff'],24);
+      break;
+    }
+    case 'festival':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#7a1f2d'],[.48,'#c83c38'],[.82,'#f08e46'],[1,'#e6c086']]);ctx.fillRect(0,0,w,h);
+      // Golden fireworks bursts
+      for(const [fx,fy,col] of [[w*.22,h*.20,'#ffe47a'],[w*.78,h*.18,'#ffb870'],[w*.50,h*.15,'#fff2a6']]){
+        ctx.strokeStyle=col;ctx.lineWidth=4;
+        for(let a=0;a<12;a++){const ang=a*Math.PI/6;ctx.beginPath();ctx.moveTo(fx+Math.cos(ang)*10,fy+Math.sin(ang)*10);ctx.lineTo(fx+Math.cos(ang)*42,fy+Math.sin(ang)*42);ctx.stroke();}
+      }
+      // Traditional festive archway
+      ctx.fillStyle='#b82c2c';ctx.fillRect(w*.22,h*.38,18,h*.38);ctx.fillRect(w*.76,h*.38,18,h*.38);
+      ctx.fillStyle='#e6b83c';ctx.beginPath();ctx.moveTo(w*.14,h*.42);ctx.quadraticCurveTo(w*.50,h*.26,w*.86,h*.42);ctx.lineTo(w*.82,h*.46);ctx.lineTo(w*.18,h*.46);ctx.closePath();ctx.fill();
+      // Hanging red lanterns
+      for(const lx of [w*.16,w*.34,w*.50,w*.66,w*.84]){
+        ctx.fillStyle='#ee3832';ctx.beginPath();ctx.ellipse(lx,h*.52,22,28,0,0,Math.PI*2);ctx.fill();
+        ctx.fillStyle='#f6ca44';ctx.fillRect(lx-10,h*.48,20,6);ctx.fillRect(lx-10,h*.55,20,6);
+      }
+      ctx.fillStyle='#d4a062';ctx.fillRect(0,h*.74,w,h*.26);
+      break;
+    }
+    case 'egypt':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#f2883e'],[.48,'#fac86e'],[.80,'#fce49e'],[1,'#d4a254']]);ctx.fillRect(0,0,w,h);
+      sunGlow(ctx,w*.50,h*.28,w*.09,'#fff5c0');
+      // Three Great Pyramids
+      ctx.fillStyle='#d9a44c';
+      ctx.beginPath();ctx.moveTo(w*.04,h*.72);ctx.lineTo(w*.24,h*.34);ctx.lineTo(w*.44,h*.72);ctx.closePath();ctx.fill();
+      ctx.beginPath();ctx.moveTo(w*.34,h*.72);ctx.lineTo(w*.62,h*.24);ctx.lineTo(w*.90,h*.72);ctx.closePath();ctx.fill();
+      ctx.fillStyle='#b88234';
+      ctx.beginPath();ctx.moveTo(w*.62,h*.24);ctx.lineTo(w*.90,h*.72);ctx.lineTo(w*.70,h*.72);ctx.closePath();ctx.fill();
+      hill(ctx,w,h,h*.74,h*.04,2.4,.6,'#e2b25c');
+      break;
+    }
+    case 'sakura':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#8cc6f2'],[.52,'#ffdce8'],[1,'#f2c8d4']]);ctx.fillRect(0,0,w,h);
+      sunGlow(ctx,w*.50,h*.36,w*.09,'#fff4df');
+      // Distant Mt. Fuji
+      ctx.fillStyle='#7292c4';ctx.beginPath();ctx.moveTo(w*.20,h*.68);ctx.lineTo(w*.44,h*.32);ctx.lineTo(w*.56,h*.32);ctx.lineTo(w*.80,h*.68);ctx.closePath();ctx.fill();
+      ctx.fillStyle='#fffaf6';ctx.beginPath();ctx.moveTo(w*.44,h*.32);ctx.lineTo(w*.56,h*.32);ctx.lineTo(w*.60,h*.42);ctx.lineTo(w*.50,h*.38);ctx.lineTo(w*.40,h*.42);ctx.closePath();ctx.fill();
+      // Vermilion Torii gate + cherry blossom canopy
+      ctx.fillStyle='#de4336';ctx.fillRect(w*.38,h*.50,14,h*.26);ctx.fillRect(w*.60,h*.50,14,h*.26);
+      ctx.fillRect(w*.30,h*.48,w*.40,14);ctx.fillRect(w*.34,h*.55,w*.32,10);
+      for(const [cx,cy,cr] of [[w*.12,h*.28,74],[w*.22,h*.22,56],[w*.86,h*.26,78],[w*.76,h*.20,54]]){
+        ctx.fillStyle='rgba(255,176,204,.88)';ctx.beginPath();ctx.arc(cx,cy,cr,0,Math.PI*2);ctx.fill();
+      }
+      hill(ctx,w,h,h*.74,h*.03,2.2,.4,'#b8d89c');
+      break;
+    }
+    case 'desert':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#e87842'],[.48,'#f8ba68'],[.80,'#f4d898'],[1,'#c88848']]);ctx.fillRect(0,0,w,h);
+      sunGlow(ctx,w*.78,h*.24,w*.068,'#fff4c2');
+      // Red-rock mesas
+      ctx.fillStyle='#c46642';
+      ctx.beginPath();ctx.moveTo(w*.06,h*.68);ctx.lineTo(w*.12,h*.40);ctx.lineTo(w*.32,h*.40);ctx.lineTo(w*.38,h*.68);ctx.closePath();ctx.fill();
+      ctx.beginPath();ctx.moveTo(w*.62,h*.68);ctx.lineTo(w*.68,h*.44);ctx.lineTo(w*.88,h*.44);ctx.lineTo(w*.94,h*.68);ctx.closePath();ctx.fill();
+      // Saguaro cacti silhouettes
+      for(const [cx,cy,sc] of [[w*.20,h*.74,1],[w*.82,h*.74,.85]]){
+        ctx.fillStyle='#4a8c4a';rr(ctx,cx-10*sc,cy-110*sc,20*sc,110*sc,10*sc);ctx.fill();
+        rr(ctx,cx-36*sc,cy-78*sc,28*sc,14*sc,7*sc);ctx.fill();rr(ctx,cx-36*sc,cy-100*sc,14*sc,34*sc,7*sc);ctx.fill();
+        rr(ctx,cx+8*sc,cy-64*sc,28*sc,14*sc,7*sc);ctx.fill();rr(ctx,cx+22*sc,cy-88*sc,14*sc,36*sc,7*sc);ctx.fill();
+      }
+      hill(ctx,w,h,h*.72,h*.04,2.0,.8,'#d49452');
+      break;
+    }
+    case 'aquarium':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#17588c'],[.48,'#2684b8'],[.82,'#4cb8d6'],[1,'#226a96']]);ctx.fillRect(0,0,w,h);
+      // Underwater glass tunnel ribs & sunbeams
+      for(const bx of [w*.24,w*.52,w*.78]){
+        ctx.fillStyle='rgba(170,242,255,.14)';ctx.beginPath();ctx.moveTo(bx,0);ctx.lineTo(bx-80,h*.78);ctx.lineTo(bx+80,h*.78);ctx.closePath();ctx.fill();
+      }
+      ctx.strokeStyle='rgba(205,244,255,.32)';ctx.lineWidth=14;
+      ctx.beginPath();ctx.arc(w*.50,h*.82,w*.46,Math.PI,0);ctx.stroke();
+      ctx.beginPath();ctx.arc(w*.50,h*.82,w*.32,Math.PI,0);ctx.stroke();
+      // Rising bubbles & kelp silhouettes
+      ctx.fillStyle='rgba(220,250,255,.45)';
+      for(let i=0;i<18;i++){ctx.beginPath();ctx.arc(w*(.08+(i*19%84)/100),h*(.12+(i*29%60)/100),5+(i%4)*5,0,Math.PI*2);ctx.fill();}
+      ctx.fillStyle='#2a9478';
+      for(const kx of [w*.10,w*.16,w*.84,w*.90]){ctx.beginPath();ctx.ellipse(kx,h*.68,14,90,.08,0,Math.PI*2);ctx.fill();}
+      break;
+    }
+    case 'artstudio':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#fff6e6'],[.65,'#faecd2'],[1,'#d8b48c']]);ctx.fillRect(0,0,w,h);
+      // Big sunlit studio window + colorful framed paintings
+      ctx.fillStyle='#b8e4f7';rr(ctx,w*.34,h*.14,w*.32,h*.38,14);ctx.fill();
+      ctx.strokeStyle='#a87c4f';ctx.lineWidth=10;ctx.stroke();
+      ctx.beginPath();ctx.moveTo(w*.50,h*.14);ctx.lineTo(w*.50,h*.52);ctx.moveTo(w*.34,h*.33);ctx.lineTo(w*.66,h*.33);ctx.stroke();
+      for(const [fx,fy,col] of [[w*.10,h*.24,'#ff8fab'],[w*.74,h*.24,'#ffd166'],[w*.12,h*.50,'#72d6c8'],[w*.72,h*.50,'#b8a4ff']]){
+        ctx.fillStyle='#fff';rr(ctx,fx,fy,w*.14,h*.18,8);ctx.fill();
+        ctx.fillStyle=col;rr(ctx,fx+10,fy+10,w*.14-20,h*.18-20,4);ctx.fill();
+      }
+      bunting(ctx,w*.04,h*.12,w*.96,h*.12,11,['#ff6b6b','#ffd93d','#6bcb77','#4d96ff','#c77dff'],20);
+      ctx.fillStyle='#c49566';ctx.fillRect(0,h*.74,w,h*.26);
+      break;
+    }
+    case 'icecreamshop':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#c4f2ee'],[.52,'#fff3e6'],[1,'#ffd6e4']]);ctx.fillRect(0,0,w,h);
+      // Mint & pink parlor awning
+      const aw=w/10;
+      for(let i=0;i<10;i++){
+        ctx.fillStyle=i%2?'#ff98b6':'#7ad8cc';
+        ctx.fillRect(i*aw,0,aw,h*.17);
+        ctx.beginPath();ctx.arc(i*aw+aw/2,h*.17,aw/2,0,Math.PI);ctx.fill();
+      }
+      // Giant ice cream cone sign & pastel parlor counter
+      ctx.fillStyle='#fffaf2';rr(ctx,w*.20,h*.28,w*.60,h*.44,24);ctx.fill();
+      ctx.strokeStyle='#ff98b6';ctx.lineWidth=8;ctx.stroke();
+      ctx.fillStyle='#e3a058';ctx.beginPath();ctx.moveTo(w*.45,h*.54);ctx.lineTo(w*.55,h*.54);ctx.lineTo(w*.50,h*.68);ctx.closePath();ctx.fill();
+      ctx.fillStyle='#ff8eb0';ctx.beginPath();ctx.arc(w*.48,h*.48,34,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#8ae6c4';ctx.beginPath();ctx.arc(w*.53,h*.46,32,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#fff3c4';ctx.beginPath();ctx.arc(w*.50,h*.38,28,0,Math.PI*2);ctx.fill();
+      ctx.fillStyle='#f4b8c8';ctx.fillRect(0,h*.74,w,h*.26);
+      break;
+    }
+    case 'petshop':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#ffe4b8'],[.55,'#fff6e2'],[1,'#e6c89c']]);ctx.fillRect(0,0,w,h);
+      // Cozy cafe wall with paw-print wallpaper & cat shelves
+      ctx.fillStyle='rgba(218,162,104,.24)';
+      for(let i=0;i<10;i++){
+        const px=w*(.08+(i%5)*.21),py=h*(.18+Math.floor(i/5)*.26);
+        ctx.beginPath();ctx.arc(px,py,16,0,Math.PI*2);ctx.fill();
+        for(const [dx,dy] of [[-14,-16],[0,-22],[14,-16]]){ctx.beginPath();ctx.arc(px+dx,py+dy,7,0,Math.PI*2);ctx.fill();}
+      }
+      ctx.fillStyle='#fffaf0';rr(ctx,w*.28,h*.22,w*.44,h*.36,20);ctx.fill();
+      ctx.strokeStyle='#b88254';ctx.lineWidth=10;ctx.stroke();
+      ctx.fillStyle='#b8e4f7';rr(ctx,w*.31,h*.25,w*.38,h*.30,12);ctx.fill();
+      ctx.fillStyle='#c48a54';rr(ctx,w*.12,h*.52,w*.14,h*.04,8);ctx.fill();rr(ctx,w*.74,h*.46,w*.14,h*.04,8);ctx.fill();
+      ctx.fillStyle='#d4a672';ctx.fillRect(0,h*.74,w,h*.26);
+      break;
+    }
+    case 'greenhouse':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#b8e8df'],[.55,'#e8f7e4'],[1,'#96c888']]);ctx.fillRect(0,0,w,h);
+      sunGlow(ctx,w*.50,h*.20,w*.075,'#fffad4');
+      // Botanical conservatory glass arches
+      ctx.strokeStyle='#ffffff';ctx.lineWidth=10;
+      for(let i=0;i<4;i++){
+        ctx.beginPath();ctx.arc(w*(.15+i*.233),h*.40,w*.116,Math.PI,0);ctx.lineTo(w*(.15+i*.233)+w*.116,h*.74);ctx.stroke();
+      }
+      // Wooden plant bench + potted succulents
+      ctx.fillStyle='#b88250';ctx.fillRect(w*.08,h*.64,w*.84,h*.06);
+      for(let i=0;i<5;i++){
+        const px=w*(.18+i*.16);
+        ctx.fillStyle='#d4724a';rr(ctx,px-22,h*.54,44,h*.10,6);ctx.fill();
+        ctx.fillStyle=i%2?'#52b064':'#78c884';ctx.beginPath();ctx.arc(px,h*.51,26,0,Math.PI*2);ctx.fill();
+      }
+      ctx.fillStyle='#7cb86e';ctx.fillRect(0,h*.74,w,h*.26);
+      break;
+    }
+    case 'library':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#5c4338'],[.55,'#8a664c'],[1,'#b88e64']]);ctx.fillRect(0,0,w,h);
+      // Warm arched library window + glowing bookshelves
+      ctx.fillStyle='#f8e8c8';ctx.beginPath();ctx.arc(w*.50,h*.36,w*.14,Math.PI,0);ctx.lineTo(w*.64,h*.66);ctx.lineTo(w*.36,h*.66);ctx.closePath();ctx.fill();
+      const bcols=['#e35454','#3b88d6','#4cb268','#f4be36','#9c68d4'];
+      for(const sx of [w*.06,w*.70]){
+        ctx.fillStyle='#6c4832';rr(ctx,sx,h*.16,w*.24,h*.58,8);ctx.fill();
+        for(let r=0;r<4;r++){
+          for(let c=0;c<6;c++){
+            ctx.fillStyle=bcols[(r*3+c)%5];
+            rr(ctx,sx+12+c*(w*.036),h*(.20+r*.13),w*.030,h*.10,3);ctx.fill();
+          }
+        }
+      }
+      sunGlow(ctx,w*.50,h*.26,w*.045,'#fff4be');
+      ctx.fillStyle='#a8784c';ctx.fillRect(0,h*.74,w,h*.26);
+      break;
+    }
+    case 'cloudland':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#69b8f2'],[.48,'#b6e2fc'],[.82,'#fce4f0'],[1,'#eef6ff']]);ctx.fillRect(0,0,w,h);
+      sunGlow(ctx,w*.22,h*.22,w*.065,'#fff7c4');
+      // Big vivid rainbow arch across clouds
+      const rcols=['#ff6b78','#ffb048','#ffe058','#68cc78','#56b4f0','#b88cff'];
+      rcols.forEach((col,i)=>{
+        ctx.strokeStyle=col;ctx.lineWidth=16;ctx.beginPath();ctx.arc(w*.50,h*.76,w*.42-i*16,Math.PI,0);ctx.stroke();
+      });
+      for(const [cx,cy,cs] of [[w*.14,h*.68,w*.12],[w*.34,h*.74,w*.11],[w*.68,h*.72,w*.12],[w*.88,h*.68,w*.12],[w*.74,h*.24,w*.08]]){
+        cloud(ctx,cx,cy,cs,'rgba(255,255,255,.94)');
+      }
+      break;
+    }
+    case 'halloween':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#241b48'],[.48,'#4e3278'],[.82,'#8e4878'],[1,'#3a284c']]);ctx.fillRect(0,0,w,h);
+      stars(ctx,w,h*.48,50,61);
+      sunGlow(ctx,w*.76,h*.24,w*.075,'#ffe894','rgba(255,210,100,0)');
+      hill(ctx,w,h,h*.66,h*.05,2.2,.4,'#382652');
+      // Cute haunted-castle silhouette + glowing smiling pumpkins
+      ctx.fillStyle='#2a1d42';rr(ctx,w*.22,h*.36,w*.20,h*.34,6);ctx.fill();
+      ctx.beginPath();ctx.moveTo(w*.19,h*.38);ctx.lineTo(w*.32,h*.20);ctx.lineTo(w*.45,h*.38);ctx.closePath();ctx.fill();
+      ctx.fillStyle='#ffcf54';rr(ctx,w*.28,h*.44,w*.035,h*.07,4);ctx.fill();rr(ctx,w*.34,h*.44,w*.035,h*.07,4);ctx.fill();
+      for(const [px,py,pr] of [[w*.64,h*.68,28],[w*.76,h*.70,22]]){
+        ctx.fillStyle='#f27a24';ctx.beginPath();ctx.ellipse(px,py,pr*1.15,pr,0,0,Math.PI*2);ctx.fill();
+        ctx.fillStyle='#ffe87a';ctx.beginPath();ctx.arc(px-8,py-4,4,0,Math.PI*2);ctx.arc(px+8,py-4,4,0,Math.PI*2);ctx.fill();
+      }
+      break;
+    }
+    case 'christmas':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#1a3662'],[.48,'#2c588e'],[.80,'#8ec4e6'],[1,'#eef8ff']]);ctx.fillRect(0,0,w,h);
+      stars(ctx,w,h*.50,65,73);
+      hill(ctx,w,h,h*.66,h*.04,2.0,.4,'#dceef8');
+      // Decorated snowy pine trees + warm glowing cottage
+      for(const [px,py,pw,ph] of [[w*.14,h*.72,w*.14,h*.34],[w*.84,h*.72,w*.14,h*.32]]){
+        pine(ctx,px,py,pw,ph,'#2a7a48');
+        ctx.fillStyle='#ffd652';ctx.beginPath();ctx.arc(px,py-ph*.94,10,0,Math.PI*2);ctx.fill();
+      }
+      ctx.fillStyle='#b8443c';rr(ctx,w*.36,h*.46,w*.28,h*.26,8);ctx.fill();
+      ctx.fillStyle='#fffaf6';ctx.beginPath();ctx.moveTo(w*.32,h*.48);ctx.lineTo(w*.50,h*.32);ctx.lineTo(w*.68,h*.48);ctx.closePath();ctx.fill();
+      ctx.fillStyle='#ffe282';rr(ctx,w*.42,h*.54,w*.06,h*.08,4);ctx.fill();rr(ctx,w*.52,h*.54,w*.06,h*.08,4);ctx.fill();
+      ctx.fillStyle='#eef8ff';ctx.fillRect(0,h*.72,w,h*.28);
+      break;
+    }
+    case 'gemmine':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#261e44'],[.52,'#3c3468'],[1,'#4d4466']]);ctx.fillRect(0,0,w,h);
+      // Cavern arch + glowing crystal clusters
+      ctx.strokeStyle='#5a4e7c';ctx.lineWidth=24;ctx.beginPath();ctx.arc(w*.50,h*.78,w*.44,Math.PI,0);ctx.stroke();
+      const gems=[[w*.16,h*.68,'#b668ff',64],[w*.24,h*.70,'#4cd6f0',48],[w*.76,h*.68,'#ff5e84',60],[w*.84,h*.70,'#4ce094',50],[w*.50,h*.32,'#ffd858',40]];
+      for(const [gx,gy,col,gh] of gems){
+        ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(gx-gh*.32,gy);ctx.lineTo(gx,gy-gh);ctx.lineTo(gx+gh*.32,gy);ctx.closePath();ctx.fill();
+      }
+      stars(ctx,w,h*.68,36,83);
+      ctx.fillStyle='#5c526e';ctx.fillRect(0,h*.74,w,h*.26);
+      break;
+    }
+    case 'superhero':{
+      ctx.fillStyle=gradY(ctx,h,[[0,'#3a8ae0'],[.50,'#9ed8fa'],[1,'#626c78']]);ctx.fillRect(0,0,w,h);
+      sunGlow(ctx,w*.82,h*.18,w*.052);cloud(ctx,w*.24,h*.16,w*.075);
+      // Grandstand & checkered gantry banner
+      ctx.fillStyle='#e2eaf0';rr(ctx,w*.06,h*.44,w*.88,h*.22,12);ctx.fill();
+      ctx.fillStyle='#df433b';ctx.fillRect(w*.06,h*.42,w*.88,h*.05);
+      // Start/finish checkered gantry arch
+      ctx.fillStyle='#3c4654';ctx.fillRect(w*.22,h*.24,18,h*.48);ctx.fillRect(w*.76,h*.24,18,h*.48);
+      for(let r=0;r<2;r++)for(let c=0;c<12;c++){
+        ctx.fillStyle=(r+c)%2?'#fff':'#222a34';
+        ctx.fillRect(w*.22+c*(w*.56/12),h*.24+r*h*.045,w*.56/12,h*.045);
+      }
+      // Asphalt racetrack + red/white curbs
+      ctx.fillStyle='#4e5864';ctx.fillRect(0,h*.70,w,h*.30);
+      for(let i=0;i<16;i++){ctx.fillStyle=i%2?'#fff':'#df433b';ctx.fillRect(i*w/16,h*.70,w/16,12);}
+      break;
+    }
     default:{
       ctx.fillStyle='#cde6f2';ctx.fillRect(0,0,w,h);
     }
@@ -628,27 +943,27 @@ function drawEmblem(ctx,cx,cy,r,kind,bgColor,fgColor,accentColor='#ffe28a'){
   else if(kind==='binGreen')drawBin('#38a354');
   else if(kind==='binRed')drawBin('#d9423a');
   else if(kind==='binGray')drawBin('#6e7b88');
-  else if(['truckGreen','truckYellow','excavator','bulldozer','mixerTruck','roller','coneCart','steamEngine','coachCar','coalCar','bulletTrain','railCrane','farmTractor','pumpkinCoach','hoverCar','coasterCar','bumperCar'].includes(kind)){
+  else if(['truckGreen','truckYellow','excavator','bulldozer','mixerTruck','roller','coneCart','steamEngine','coachCar','coalCar','bulletTrain','railCrane','farmTractor','pumpkinCoach','hoverCar','coasterCar','bumperCar','airliner','luggageCart','boardingStair','ambulance','ladderTruck','fireBoat','cargoShip','tugBoat','sailBoat','schoolBus','wagonCart','submarine','sleighCar','mineCart','f1Racer','driftCar','monsterTruck'].includes(kind)){
     drawTruck(fgColor,accentColor);
-  }else if(kind.startsWith('dino')){
+  }else if(kind.startsWith('dino')||['dragonHead'].includes(kind)){
     drawDino(fgColor,accentColor);
-  }else if(['farmCow','farmSheep','farmPig','farmRooster','giantPanda','redPanda','giraffe','lionCub','babyElephant','zebra','hippo','croc','polarBear','orcaWhale','babySeal','blueWhale','snowFox','unicorn','babyDragon','parrot','octopusCap','circusBear','magicHatRabbit','carouselHorse'].includes(kind)){
-    drawAnimal(fgColor,accentColor,kind==='giantPanda'?'#232930':kind==='farmCow'?'#3b3530':null);
-  }else if(['shortcake','donutPink','croissant','macaronTower','bearCookie','matchaCupcake','cottonCandy','popcornTub'].includes(kind)){
+  }else if(['farmCow','farmSheep','farmPig','farmRooster','giantPanda','redPanda','giraffe','lionCub','babyElephant','zebra','hippo','croc','polarBear','orcaWhale','babySeal','blueWhale','snowFox','unicorn','babyDragon','parrot','octopusCap','circusBear','magicHatRabbit','carouselHorse','pilotBear','nurseRabbit','fireDog','owlTeacher','lionDance','fortuneCat','sphinxCat','camelToy','shibaInu','westernHorse','seahorse','hermitCrab','clownFish','corgiPup','calicoCat','hamsterWheel','lopBunny','parakeet','teddyReader','cuteGhost','blackCat','batBuddy','santaClaus','reindeer','gingerbread','minerMole'].includes(kind)){
+    drawAnimal(fgColor,accentColor,kind==='giantPanda'?'#232930':kind==='farmCow'||kind==='fireDog'?'#3b3530':null);
+  }else if(['shortcake','donutPink','croissant','macaronTower','bearCookie','matchaCupcake','cottonCandy','popcornTub','softServe','popsicle','sundaeCup','shavedIce','bobaTea','waffleCone','tanghulu','dangoStick','sakuraMochi','candyBucket','giftBox'].includes(kind)){
     drawCake(fgColor,accentColor);
-  }else if(['strawberry','watermelon','pineapple','redApple','bananaBoat','grapeCluster','bambooShoot'].includes(kind)){
+  }else if(['strawberry','watermelon','pineapple','redApple','bananaBoat','grapeCluster','bambooShoot','oasisPalm','cactusPot','succulentRose','sunflowerPot','bonsaiTree','tulipPot','pumpkinLantern','christmasTree'].includes(kind)){
     drawFruit(fgColor,'#4ca84a');
-  }else if(['shrimpSushi','ramenBowl','burger','pizzaSlice','fryPanEgg','teaPot','porcelainCup','marshmallow'].includes(kind)){
+  }else if(['shrimpSushi','ramenBowl','burger','pizzaSlice','fryPanEgg','teaPot','porcelainCup','marshmallow','clayJar','wateringCan','cloudPillow','goldIngot'].includes(kind)){
     drawBowl(fgColor,accentColor);
-  }else if(['ladybug','butterfly','honeyBee','beetle','mantis','snail'].includes(kind)){
+  }else if(['ladybug','butterfly','honeyBee','beetle','mantis','snail','scarabGem','jellyfish','mantaRay','origamiCrane'].includes(kind)){
     drawBug(fgColor,accentColor);
-  }else if(['retroBot','sphereAI','mechWalker','quadDrone','powerCore'].includes(kind)){
+  }else if(['retroBot','sphereAI','mechWalker','quadDrone','powerCore','thermometer','capsuleToy','paintTube','crayonRocket','retroRadio','globeLamp'].includes(kind)){
     drawBot(fgColor,accentColor);
-  }else if(['campTent','circusTent','igloo','farmBarn','fairyTower','signalTower'].includes(kind)){
+  }else if(['campTent','circusTent','igloo','farmBarn','fairyTower','signalTower','controlTower','lighthouse','pyramid','toriiGate','mushroomHouse','catHouse','easelBoard','storyClock','witchHat','amethyst','emeraldGem'].includes(kind)){
     drawTent(fgColor,accentColor);
-  }else if(['treasureChest','pirateShip','goldAnchor','spyglassBarrel','backpack','redLantern','campLantern','campfire'].includes(kind)){
+  }else if(['treasureChest','pirateShip','goldAnchor','spyglassBarrel','backpack','redLantern','campLantern','campfire','suitcase','medKit','fireHydrant','extinguisher','harborCrane','schoolBag','crayonBox','bookStack','drumToy','pharaohMask','guitarBoot','koinobori','checkeredFlag','goldPickaxe','featherQuill'].includes(kind)){
     drawChest(fgColor,accentColor);
-  }else if(['ferrisWheel','soccerBall','basketball','unicycle','compass','bambooFan','hotBalloon'].includes(kind)){
+  }else if(['ferrisWheel','soccerBall','basketball','unicycle','compass','bambooFan','hotBalloon','stethoscope','fireHelmet','lifeBuoy','globeToy','daruma','cowboyHat','paletteToy','rainbowArch','sunBuddy','crescentMoon','raindropToy','windMill','racingHelmet'].includes(kind)){
     drawWheel(fgColor);
   }else{
     drawStarItem(fgColor);
@@ -717,6 +1032,66 @@ const TOY_PALETTE={
   // amusement
   ferrisWheel:['#e2f2fc','#ff7096','#ffd166'],carouselHorse:['#f8e4f5','#fff6fa','#f29ec4'],coasterCar:['#ffe2dc','#e64c42','#ffd24c'],
   popcornTub:['#fff0d4','#e04343','#ffe484'],cottonCandy:['#ffe4f2','#ff9ac8','#8ce0ff'],bumperCar:['#e2f2fa','#3a96d6','#ffd24c'],
+  // airport
+  airliner:['#dff2fc','#ffffff','#3fa6e8'],luggageCart:['#fff2cc','#f4c236','#e35464'],controlTower:['#e2eff8','#e9eef4','#2f78c4'],
+  boardingStair:['#e4f0fa','#3a88d4','#f2b632'],suitcase:['#dff0fc','#3c92d8','#f6c945'],pilotBear:['#f5e8d8','#b87948','#263d66'],
+  // hospital
+  ambulance:['#ffe4e4','#ffffff','#e64545'],nurseRabbit:['#ffe8ee','#fff7f4','#f7a4b8'],medKit:['#ffe2e2','#ffffff','#e64545'],
+  stethoscope:['#dff4f4','#3ca4b8','#2d4a5e'],thermometer:['#e2f6f2','#f4f9fc','#4cb5a8'],capsuleToy:['#ffe4e4','#f25c5c','#fff7e8'],
+  // firehouse
+  ladderTruck:['#ffe0dc','#df433b','#b8c5d0'],fireBoat:['#dff0fa','#d93b34','#4ca8e0'],fireHydrant:['#ffe0dc','#df433b','#f4c84b'],
+  fireHelmet:['#ffe2dc','#df433b','#f4c438'],extinguisher:['#ffe0dc','#df433b','#2a2e38'],fireDog:['#edf2f6','#fffaf2','#df433b'],
+  // harbor
+  cargoShip:['#dff0fa','#2d5a82','#e3544a'],tugBoat:['#e2eff8','#e65245','#f6b73c'],lighthouse:['#ffe4e0','#fffaf2','#df433b'],
+  harborCrane:['#e0eef8','#3886c9','#f4be36'],lifeBuoy:['#ffe6e0','#fffaf2','#df433b'],sailBoat:['#dff2fc','#2f78c4','#fff9eb'],
+  // school
+  schoolBus:['#fff2cc','#f4c133','#2a2e38'],schoolBag:['#ffe2e6','#e65865','#ffd15c'],globeToy:['#dff2fc','#3b98db','#5ab862'],
+  crayonBox:['#fff2cc','#f4c438','#e84a43'],deskLamp:['#e0f5f0','#4cb5a4','#ffd668'],owlTeacher:['#f5eadc','#8a6246','#f4c438'],
+  // festival
+  lionDance:['#ffe0dc','#de3d38','#f3c43c'],goldIngot:['#fff4cc','#f3c43c','#ffe070'],tanghulu:['#ffe0e4','#d93232','#f6ebd4'],
+  dragonHead:['#ffe0dc','#e6483e','#4db87a'],fortuneCat:['#fff2dc','#fffaf2','#df3c38'],drumToy:['#ffe2dc','#de3d38','#f6ebd4'],
+  // egypt
+  pyramid:['#fff0cc','#e6b963','#f6d24c'],sphinxCat:['#f8ebd0','#e3ba72','#2c6bb8'],camelToy:['#f7e8d2','#d8a05a','#d94646'],
+  pharaohMask:['#fff1cc','#f3c43c','#2862b0'],scarabGem:['#dff0fc','#2c88d8','#f2c444'],oasisPalm:['#e4f4dc','#4ca84a','#eed18a'],
+  // sakura
+  daruma:['#ffe0e2','#de3d38','#f6ebd4'],shibaInu:['#ffeed6','#e69c4c','#df4646'],dangoStick:['#ffe8ee','#ffb0c4','#86c470'],
+  toriiGate:['#ffe0dc','#de4336','#f3c43c'],koinobori:['#ffe4e8','#e64c56','#3b8be0'],sakuraMochi:['#ffe4ee','#ffaac4','#52a656'],
+  // desert
+  cowboyHat:['#f4e4d0','#9e6238','#d84a3e'],cactusPot:['#e2f4dc','#4ea854','#ff7ea6'],wagonCart:['#f7ecd6','#9e683c','#f8eed6'],
+  westernHorse:['#f4e2d2','#9e5a32','#d8483c'],sheriffStar:['#fff2cc','#f3c43c','#9e683c'],guitarBoot:['#f5e4d2','#b05e34','#f4c438'],
+  // aquarium
+  jellyfish:['#efe2fc','#c88cff','#f2c8ff'],mantaRay:['#dff0fa','#2d6da8','#e6f4fc'],seahorse:['#ffecd4','#f4983c','#ffe08c'],
+  submarine:['#fff3cc','#f4c42e','#e3543b'],hermitCrab:['#ffe4dc','#e68a5c','#e84a3c'],clownFish:['#ffe8d4','#f47428','#fffaf2'],
+  // artstudio
+  easelBoard:['#f5eadc','#b07846','#78c8f4'],paletteToy:['#fff4e0','#f6ebd4','#e84a43'],paintTube:['#dff0fc','#4896e8','#fff6df'],
+  origamiCrane:['#ffe4ec','#ff8fab','#f4dfbe'],clayJar:['#f5e2d6','#d87c52','#3b86b8'],crayonRocket:['#ffe2e2','#ff6b6b','#ffe066'],
+  // icecreamshop
+  softServe:['#ffe8f0','#ff9cb6','#df9c54'],popsicle:['#ffe2e6','#f25264','#4cb562'],sundaeCup:['#ffe8f2','#ff9ab8','#8ed8f2'],
+  shavedIce:['#dff2fc','#4c8be6','#b8e8ff'],bobaTea:['#f5ead8','#e6bd8a','#ff789a'],waffleCone:['#f7ead2','#d89448','#ff8eb0'],
+  // petshop
+  corgiPup:['#ffeed6','#e69848','#fffaf2'],calicoCat:['#f5ece2','#fffaf2','#e68e3c'],hamsterWheel:['#dff6f2','#5ec4b8','#f0b670'],
+  lopBunny:['#f7ece2','#edd4be','#f69ab2'],parakeet:['#e2f7e0','#6cd47a','#ffe25c'],catHouse:['#ffe6ee','#ffb0c8','#dfbc86'],
+  // greenhouse
+  succulentRose:['#e2f5e6','#6ec28e','#e69a74'],sunflowerPot:['#fff4cc','#ffd238','#6b4226'],mushroomHouse:['#ffe2e0','#e64545','#f6ebd4'],
+  wateringCan:['#dff4ec','#52b88a','#f4c438'],bonsaiTree:['#e2f2e4','#4ca358','#3b6e8c'],tulipPot:['#ffe4ee','#ff6896','#f2c864'],
+  // library
+  bookStack:['#f4e8dc','#e65252','#3b88d6'],storyClock:['#f5e6d6','#a86c3e','#c8443a'],retroRadio:['#dff4f0','#4aa8a0','#f4e6c8'],
+  teddyReader:['#f5e6d4','#c4844c','#3b88d6'],featherQuill:['#ffe4ee','#ff82a8','#2e4c7a'],globeLamp:['#e6e8fa','#6274cc','#f4c438'],
+  // cloudland
+  cloudPillow:['#e4f4fc','#f6fbff','#ff9eb8'],rainbowArch:['#e8f4fc','#ff6b78','#56b4f0'],sunBuddy:['#fff4cc','#ffd238','#ff9e32'],
+  crescentMoon:['#e8eefa','#ffe270','#ff9eb8'],raindropToy:['#dff2fc','#62c4f6','#ff7a96'],windMill:['#e8f6ec','#ff6b78','#4ea2f0'],
+  // halloween
+  pumpkinLantern:['#ffe8d4','#f27a24','#4c8c42'],cuteGhost:['#ece8f6','#fffaf2','#ff9eb4'],witchHat:['#ece2f8','#5a3b8c','#f29c2e'],
+  blackCat:['#e6e4f2','#2d313d','#7a44a8'],candyBucket:['#ffead4','#f28828','#ff5e7e'],batBuddy:['#eae2f6','#62448c','#463066'],
+  // christmas
+  santaClaus:['#ffe2e0','#df413c','#fffaf2'],christmasTree:['#dff4e2','#389452','#f4c63a'],reindeer:['#f4e4d6','#a86c3e','#df413c'],
+  giftBox:['#ffe2e6','#e64552','#f4c63a'],gingerbread:['#f5e4d2','#b8743c','#df413c'],sleighCar:['#ffe2dc','#df413c','#f4c63a'],
+  // gemmine
+  mineCart:['#e6eaf0','#5a6675','#a45ce6'],amethyst:['#efe2fc','#9e52e0','#c484ff'],rubyHeart:['#ffe0e8','#e63858','#f4c63a'],
+  emeraldGem:['#dff6e8','#34b870','#f4c63a'],goldPickaxe:['#fff2cc','#f4c63a','#9e6438'],minerMole:['#ede6e2','#66564e','#f4c42e'],
+  // superhero
+  f1Racer:['#ffe0dc','#df413c','#fffaf2'],driftCar:['#dff0fc','#3684d6','#f4c63a'],monsterTruck:['#e0f5e2','#48b85a','#262a34'],
+  checkeredFlag:['#eaedf0','#262d38','#fffaf2'],racingHelmet:['#ffe2dc','#e64545','#f4c63a'],podiumCup:['#fff2cc','#f4c63a','#df413c'],
 };
 
 const STAGE_MEDAL_KIND={
@@ -724,6 +1099,10 @@ const STAGE_MEDAL_KIND={
   bakery:'shortcake',fruit:'strawberry',kitchen:'shrimpSushi',bamboo:'giantPanda',insect:'ladybug',
   safari:'giraffe',polar:'polarBear',castle:'unicorn',pirate:'treasureChest',robot:'retroBot',
   music:'miniPiano',sports:'goldTrophy',camp:'campTent',circus:'circusBear',amusement:'ferrisWheel',
+  airport:'airliner',hospital:'ambulance',firehouse:'ladderTruck',harbor:'cargoShip',school:'schoolBus',
+  festival:'lionDance',egypt:'pyramid',sakura:'shibaInu',desert:'cowboyHat',aquarium:'submarine',
+  artstudio:'easelBoard',icecreamshop:'softServe',petshop:'corgiPup',greenhouse:'mushroomHouse',library:'teddyReader',
+  cloudland:'rainbowArch',halloween:'pumpkinLantern',christmas:'santaClaus',gemmine:'mineCart',superhero:'f1Racer',
 };
 
 export function toyPortraitUrl(kind){

@@ -14,6 +14,10 @@ import {ECO_DINO} from './toys-eco-dino.js';
 import {FOOD_NATURE} from './toys-food-nature.js';
 import {WILD_FANTASY} from './toys-wild-fantasy.js';
 import {FUN_PLAY} from './toys-fun-play.js';
+import {CITY_RESCUE} from './toys-city-rescue.js';
+import {WORLD_CULTURE} from './toys-world-culture.js';
+import {CRAFT_HOME} from './toys-craft-home.js';
+import {DREAM_ADVENTURE} from './toys-dream-adventure.js';
 import {externalModel,prepareModel} from './imported.js';
 const grips={fire:[.05,.99,0],racer:[-.07,.43,0],plane:[-.024,.47,0],scooter:[.06,.25,0],crane:[-.12,.63,0],
  bus:[0,.79,0],tipper:[-.08,.64,0],icecream:[-.04,.74,0],helicopter:[.12,.51,0],convertible:[-.045,.47,0]};
@@ -24,7 +28,7 @@ const vehicles=Object.fromEntries(Object.entries(CATALOG).map(([id,spec])=>[id,{
 }}]));
 const pups=Object.fromEntries(Object.entries(PUPS).map(([id,spec])=>[id,{...spec,make:()=>id==='skye'?externalModel(id):pupModel(id)}]));
 export const PRIZES={...vehicles,...PLANTS,...pups,...HEELERS,...REEF,...SPACE,...PLUSH,...PONIES,...PEPPA,...POLICE,...KATURI,...SPIDEY,
-  ...ECO_DINO,...FOOD_NATURE,...WILD_FANTASY,...FUN_PLAY,
+  ...ECO_DINO,...FOOD_NATURE,...WILD_FANTASY,...FUN_PLAY,...CITY_RESCUE,...WORLD_CULTURE,...CRAFT_HOME,...DREAM_ADVENTURE,
   bluey:{name:'布鲁伊',make:()=>externalModel('bluey')},bingo:{name:'宾果',make:()=>externalModel('bingo')}};
 export const POOLS={
   snow:Object.keys(PLUSH),
@@ -52,5 +56,25 @@ export const POOLS={
   camp:['campTent','campfire','campLantern','backpack','marshmallow','compass'],
   circus:['circusBear','clownHat','circusTent','unicycle','magicHatRabbit','hotBalloon'],
   amusement:['ferrisWheel','carouselHorse','coasterCar','popcornTub','cottonCandy','bumperCar'],
+  airport:['airliner','luggageCart','controlTower','boardingStair','suitcase','pilotBear'],
+  hospital:['ambulance','nurseRabbit','medKit','stethoscope','thermometer','capsuleToy'],
+  firehouse:['ladderTruck','fireBoat','fireHydrant','fireHelmet','extinguisher','fireDog'],
+  harbor:['cargoShip','tugBoat','lighthouse','harborCrane','lifeBuoy','sailBoat'],
+  school:['schoolBus','schoolBag','globeToy','crayonBox','deskLamp','owlTeacher'],
+  festival:['lionDance','goldIngot','tanghulu','dragonHead','fortuneCat','drumToy'],
+  egypt:['pyramid','sphinxCat','camelToy','pharaohMask','scarabGem','oasisPalm'],
+  sakura:['daruma','shibaInu','dangoStick','toriiGate','koinobori','sakuraMochi'],
+  desert:['cowboyHat','cactusPot','wagonCart','westernHorse','sheriffStar','guitarBoot'],
+  aquarium:['jellyfish','mantaRay','seahorse','submarine','hermitCrab','clownFish'],
+  artstudio:['easelBoard','paletteToy','paintTube','origamiCrane','clayJar','crayonRocket'],
+  icecreamshop:['softServe','popsicle','sundaeCup','shavedIce','bobaTea','waffleCone'],
+  petshop:['corgiPup','calicoCat','hamsterWheel','lopBunny','parakeet','catHouse'],
+  greenhouse:['succulentRose','sunflowerPot','mushroomHouse','wateringCan','bonsaiTree','tulipPot'],
+  library:['bookStack','storyClock','retroRadio','teddyReader','featherQuill','globeLamp'],
+  cloudland:['cloudPillow','rainbowArch','sunBuddy','crescentMoon','raindropToy','windMill'],
+  halloween:['pumpkinLantern','cuteGhost','witchHat','blackCat','candyBucket','batBuddy'],
+  christmas:['santaClaus','christmasTree','reindeer','giftBox','gingerbread','sleighCar'],
+  gemmine:['mineCart','amethyst','rubyHeart','emeraldGem','goldPickaxe','minerMole'],
+  superhero:['f1Racer','driftCar','monsterTruck','checkeredFlag','racingHelmet','podiumCup'],
 };
 export const preparePrizes=ids=>Promise.all(ids.map(prepareModel));

@@ -1,13 +1,19 @@
 const wheels=new Set(['fire','racer','crane','bus','tipper','icecream','convertible','scooter','rover','sheriffCar',
   'truckGreen','truckYellow','excavator','bulldozer','mixerTruck','roller','coneCart','steamEngine','coachCar',
-  'coalCar','bulletTrain','railCrane','farmTractor','pumpkinCoach','hoverCar','skateboard','unicycle','coasterCar','bumperCar']);
-const air=new Set(['plane','helicopter','dinoPtero','quadDrone','hotBalloon']);
+  'coalCar','bulletTrain','railCrane','farmTractor','pumpkinCoach','hoverCar','skateboard','unicycle','coasterCar','bumperCar',
+  'luggageCart','boardingStair','ambulance','ladderTruck','schoolBus','wagonCart','sleighCar','mineCart','f1Racer','driftCar','monsterTruck']);
+const air=new Set(['plane','helicopter','dinoPtero','quadDrone','hotBalloon','airliner','origamiCrane','mantaRay','batBuddy']);
 const hard=new Set(['plane','helicopter','rocket','satellite','robot','lander','astronaut','fern','honey','coralBud','bells','moss','moon','sheriffGlass','sheriffRadio','webTrace',
   'binBlue','binGreen','binRed','binGray','dinoEgg','hardHat','signalTower','farmBarn','ramenBowl','fryPanEgg','teaPot',
   'redLantern','porcelainCup','bambooFan','igloo','crownPrince','magicWand','fairyTower','treasureChest','pirateShip',
   'goldAnchor','spyglassBarrel','retroBot','sphereAI','mechWalker','powerCore','miniPiano','acousticGuitar','jazzDrum',
   'goldTrumpet','miniViolin','xylophone','soccerBall','basketball','goldTrophy','shuttleSet','campLantern','compass',
-  'ferrisWheel','carouselHorse']);
+  'ferrisWheel','carouselHorse','controlTower','suitcase','medKit','stethoscope','thermometer','fireBoat','fireHydrant',
+  'fireHelmet','extinguisher','cargoShip','tugBoat','lighthouse','harborCrane','sailBoat','globeToy','crayonBox','deskLamp',
+  'goldIngot','drumToy','pyramid','pharaohMask','scarabGem','daruma','toriiGate','sheriffStar','submarine','easelBoard',
+  'paletteToy','clayJar','sundaeCup','catHouse','mushroomHouse','wateringCan','bonsaiTree','bookStack','storyClock',
+  'retroRadio','featherQuill','globeLamp','windMill','pumpkinLantern','candyBucket','giftBox','amethyst','rubyHeart',
+  'emeraldGem','goldPickaxe','checkeredFlag','racingHelmet','podiumCup']);
 export const motionType=id=>wheels.has(id)?'wheels':air.has(id)?'air':hard.has(id)?'solid':'soft';
 export const surfaceSound=id=>motionType(id)==='soft'?'soft':'hard';
 export function hangingAngle(toy,arm){

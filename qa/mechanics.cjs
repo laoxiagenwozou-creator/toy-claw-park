@@ -98,7 +98,7 @@ const filming=process.argv.includes('--film');
     assert.equal(await page.locator('#machine').getAttribute('data-stage'),id);
     assert.equal(await page.locator('#machine').getAttribute('data-mode'),'play');
   }
-  await cross('left-glass','amusement');await cross('right-glass','snow');
+  await cross('left-glass','superhero');await cross('right-glass','snow');
   await cross('next','town',true);await pause(240);await cross('next','lookout',true);
   await cross('next','yard',true);await pause(400);
   // The pick and grab fixtures below specify cabinet coordinates from straight ahead.

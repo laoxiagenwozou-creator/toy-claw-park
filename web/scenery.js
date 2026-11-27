@@ -25,6 +25,10 @@ const domeColors = {
   bakery:'#e88ca5', fruit:'#88bf58', kitchen:'#de9254', bamboo:'#5eb57a', insect:'#7bc268',
   safari:'#d99b4e', polar:'#64b8de', castle:'#b48ce2', pirate:'#54a4bd', robot:'#6898d8',
   music:'#a878d4', sports:'#5eb874', camp:'#608cb0', circus:'#de6868', amusement:'#d684b5',
+  airport:'#58a4de', hospital:'#5ebfb8', firehouse:'#df5a52', harbor:'#4e8cc4', school:'#e6b83e',
+  festival:'#e04c46', egypt:'#dfb04e', sakura:'#eb8eb2', desert:'#d4844e', aquarium:'#4aa8d6',
+  artstudio:'#d89460', icecreamshop:'#eb8cb0', petshop:'#d69a64', greenhouse:'#64b878', library:'#b8865c',
+  cloudland:'#74b8eb', halloween:'#966ed8', christmas:'#64a8d6', gemmine:'#9a7ce0', superhero:'#df5a52',
 };
 
 function metallicDome(color) {

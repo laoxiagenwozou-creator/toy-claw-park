@@ -45,7 +45,7 @@ button.award-primary{background:var(--gold);border-color:#ffe6ae;color:#2b3c3f}
 .medal-stage{left:8%;bottom:17.1%;font-size:clamp(9px,4.8cqw,16px);font-weight:650;color:#c6dcd8}
 .medal-serial,.medal-back-no,.medal-back-number,.slot-no,.locked-number{font-family:Georgia,'Times New Roman',serif;font-variant-numeric:lining-nums tabular-nums}
 .medal-serial{bottom:5.1%;left:8%;font-size:clamp(13px,8.2cqw,28px);font-style:italic;color:#f6ead1}
-.medal-dots{right:8%;bottom:6.5%;display:grid;width:24%;grid-template-columns:repeat(8,1fr);gap:1.5px}
+.medal-dots{right:7%;bottom:6.5%;display:grid;width:32%;grid-template-columns:repeat(13,1fr);gap:1.2px}
 .medal-dots span{aspect-ratio:1;border-radius:50%;background:#719399}.medal-dots .lit{background:#f9df9b;box-shadow:0 0 3px #f1dfa2}
 .medal-back-no{left:8%;top:27%;font-size:8cqw;font-style:italic;color:var(--foil)}
 .medal-back-number{left:6.5%;top:30%;font-size:38cqw;line-height:1.1;letter-spacing:-.07em;color:#ebf2e6}
