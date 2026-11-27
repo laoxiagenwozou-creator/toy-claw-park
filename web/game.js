@@ -81,9 +81,11 @@ function run(){
       const buttons=[...$('stage-grid').querySelectorAll('.stage-card')];
       if(!buttons.length)return;
       const cur=buttons.indexOf(document.activeElement);
-      const cols=Math.max(1,Math.round($('stage-grid').clientWidth/Math.max(1,buttons[0].getBoundingClientRect().width)));
+      const gridCols=getComputedStyle($('stage-grid')).gridTemplateColumns.split(' ').filter(Boolean).length;
+      const cols=Math.max(1,gridCols||Math.round($('stage-grid').clientWidth/Math.max(1,buttons[0].getBoundingClientRect().width)));
       const next=cur<0?0:(cur+dx+dy*cols+buttons.length)%buttons.length;
       buttons[next].focus({preventScroll:false});
+      buttons[next].scrollIntoView({block:'nearest',inline:'nearest'});
     }else if(mode==='won'){
       const buttons=[...$('win').querySelectorAll('button:not([hidden]):not(:disabled)')];
       if(!buttons.length)return;
@@ -103,8 +105,15 @@ function run(){
     }
   }
   function gamepadBack(){
+    if(!$('view-options').hidden){$('view-tools-toggle').click();return;}
     const openDialog=document.querySelector('dialog[open]');
-    if(openDialog){openDialog.close();return;}
+    if(openDialog){
+      if(openDialog.id==='medal-wall'&&!$('wall-detail').hidden){$('wall-back').click();return;}
+      if(openDialog.id==='playroom'&&!$('room-detail').hidden){$('back-shelf').click();return;}
+      const closeBtn=openDialog.querySelector('#room-close,#wall-close,#parent-close,#sound-close');
+      if(closeBtn)closeBtn.click();else openDialog.close();
+      return;
+    }
     if(!$('credits').hidden){$('credits-close').click();return;}
     if((mode==='play'||mode==='won')&&!busy)menu();
   }

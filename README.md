@@ -84,7 +84,7 @@ npm ci
 
 ```bash
 npm run build:mac
-# 产物输出到 dist/PocketClaw-macOS-v3.1.0.dmg 与 dist/PocketClaw-macOS-v3.1.0.zip
+# 产物输出到 dist/PocketClaw-macOS-v3.1.1.dmg 与 dist/PocketClaw-macOS-v3.1.1.zip
 ```
 
 或直接用 Xcode 打开 `macOS/PocketClawMac.xcodeproj`，选择 `PocketClawMac` Scheme 点击 Run。

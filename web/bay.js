@@ -11,7 +11,7 @@ export async function buildBay(theme,id,board,shadowGeometry,shadowMaterial) {
   const root=new THREE.Group();
   const clawShadow=createClawShadow();
   const [setGate]=await Promise.all([
-    furnishBay(root,theme,clawShadow),
+    furnishBay(root,theme,clawShadow,id),
     preparePrizes(POOLS[id])
   ]);
   const updateCrane=makeCrane(root,clawShadow,theme);
@@ -81,6 +81,11 @@ export async function buildBay(theme,id,board,shadowGeometry,shadowMaterial) {
     parked.x=THREE.MathUtils.lerp(HOME.x,offset>0?-3.31:3.31,weight);
     updateCrane(parked,false);
   }
+  function dispose(){
+    for(let i=0;i<toys.length;i++)remove(i);
+    setGate.dispose?.();
+    root.clear();
+  }
   sync();park(0);
-  return {root,toys,prizes,setGate,updateCrane,sync,park,put,remove,shadowsChanged};
+  return {root,toys,prizes,setGate,updateCrane,sync,park,put,remove,shadowsChanged,dispose};
 }

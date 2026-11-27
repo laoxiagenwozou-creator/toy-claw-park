@@ -94,7 +94,7 @@ export function createChamber(canvas, viewport) {
   const shadowGeo=new THREE.PlaneGeometry(1,1);shadowGeo.rotateX(-Math.PI/2);
   const camera=new THREE.PerspectiveCamera(),raycaster=new THREE.Raycaster();
   const pointer=new THREE.Vector2(),point=new THREE.Vector3();
-  const ids=Object.keys(THEMES),count=ids.length,pitch=10.85;
+  const ids=Object.keys(THEMES),count=ids.length,pitch=10.85,MAX_CACHED_BAYS=9;
   const cabinets=new Map(),building=new Map();
   const markerRoot=group(scene),updateMarker=makeMarker(markerRoot);
   scene.add(sun.target);
@@ -154,7 +154,22 @@ export function createChamber(canvas, viewport) {
     active=cabinets.get(id);active.setGate(0);visited=true;inTransit=true;move(from);
     return {from,to};
   }
-  function dock(slot){inTransit=false;move(slot);viewport.dataset.ready='true';}
+  function evictDistant(center){
+    if(cabinets.size<=MAX_CACHED_BAYS)return;
+    const ranked=[...cabinets.entries()]
+      .filter(([,bay])=>bay!==active)
+      .map(([id,bay])=>({id,bay,dist:Math.abs(nearestSlot(ids.indexOf(id),center)-center)}))
+      .filter(entry=>entry.dist>2.5)
+      .sort((a,b)=>b.dist-a.dist);
+    for(const {id,bay} of ranked){
+      if(cabinets.size<=MAX_CACHED_BAYS)break;
+      scene.remove(bay.root);
+      bay.dispose?.();
+      cabinets.delete(id);
+      building.delete(id);
+    }
+  }
+  function dock(slot){inTransit=false;move(slot);evictDistant(slot);viewport.dataset.ready='true';}
   function pick(clientX,clientY){
     if(!active||inTransit)return -1;
     const b=viewport.getBoundingClientRect();

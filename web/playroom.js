@@ -97,16 +97,21 @@ export function createPlayroom(boards,sound,gameStage,available,stopMovement){
       else if(selected.right>bounds.right-4)strip.scrollLeft+=selected.right-bounds.right+4;
     }
   }
+  let scrollRaf=0,ignoreScrollUntil=0;
   function scrollToTier(id,smooth=false){
     const tier=tierNodes.get(id),rack=$('owned-toys');
     if(!tier||!rack)return;
     const top=Math.max(0,tier.offsetTop-rack.offsetTop-14);
-    if(smooth&&!matchMedia('(prefers-reduced-motion:reduce)').matches)rack.scrollTo({top,behavior:'smooth'});
-    else rack.scrollTop=top;
+    if(smooth&&!matchMedia('(prefers-reduced-motion:reduce)').matches){
+      ignoreScrollUntil=performance.now()+550;
+      rack.scrollTo({top,behavior:'smooth'});
+    }else{
+      ignoreScrollUntil=performance.now()+80;
+      rack.scrollTop=top;
+    }
   }
-  let scrollRaf=0;
   $('owned-toys').addEventListener('scroll',()=>{
-    if(tab!=='shelf'||scrollRaf)return;
+    if(tab!=='shelf'||scrollRaf||performance.now()<ignoreScrollUntil)return;
     scrollRaf=requestAnimationFrame(()=>{
       scrollRaf=0;
       const rack=$('owned-toys'),anchor=rack.scrollTop+rack.clientHeight*.28;

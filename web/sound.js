@@ -26,15 +26,18 @@ function preferences(){
 export function createSound(){
   let options=preferences(),ctx,effectsBus,master,noiseBuffer,theme,decoding=false,music,motor;
   let offset=0,game=false,foreground=true,interacted=false,opener;
-  let speech=null,speechTicket=0;
+  let speech=null,speechTicket=0,activeUtterance=null,speechTimer=0;
   const voices=new Map();
   function stopSpeech(){
     ++speechTicket;
+    if(speechTimer){clearTimeout(speechTimer);speechTimer=0;}
     if(speech){speech.onended=null;speech.stop();speech.disconnect();speech=null;}
+    if(activeUtterance){activeUtterance.onend=activeUtterance.onerror=null;activeUtterance=null;}
     try{window.speechSynthesis?.cancel?.();}catch{}
     if(music&&ctx)music.gain.gain.setTargetAtTime(.31,ctx.currentTime,.09);
   }
   async function readRequest(stage){
+    const hadUtterance=Boolean(activeUtterance);
     stopSpeech();if(!options.music&&!options.effects)return false;
     unlock();if(!ctx||!visible())return false;
     const ticket=speechTicket;
@@ -46,9 +49,17 @@ export function createSound(){
         if(window.speechSynthesis&&typeof SpeechSynthesisUtterance!=='undefined'){
           const utter=new SpeechSynthesisUtterance(line);
           utter.lang='zh-CN';utter.rate=.96;utter.pitch=1.08;
+          activeUtterance=utter;
           if(music)music.gain.gain.setTargetAtTime(.09,ctx.currentTime,.045);
-          utter.onend=utter.onerror=()=>{if(ticket===speechTicket&&music&&ctx)music.gain.gain.setTargetAtTime(.31,ctx.currentTime,.09);};
-          window.speechSynthesis.speak(utter);
+          const finish=()=>{
+            if(speechTimer){clearTimeout(speechTimer);speechTimer=0;}
+            if(activeUtterance===utter)activeUtterance=null;
+            if(ticket===speechTicket&&music&&ctx)music.gain.gain.setTargetAtTime(.31,ctx.currentTime,.09);
+          };
+          utter.onend=utter.onerror=finish;
+          speechTimer=setTimeout(finish,9500);
+          const speakNow=()=>{if(ticket===speechTicket&&activeUtterance===utter)window.speechSynthesis.speak(utter);};
+          if(hadUtterance)setTimeout(speakNow,40);else speakNow();
           return true;
         }
       }catch{}

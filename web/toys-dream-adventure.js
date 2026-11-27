@@ -1,4 +1,4 @@
-import {box,group,oval,paint,profile,rod,torus,tube} from './parts.js';
+import {THREE,box,group,oval,paint,part,profile,rod,singleUseGeometry,torus,tube} from './parts.js';
 import {bead} from './sculpt.js';
 import {collectable} from './models.js';
 
@@ -31,11 +31,15 @@ function cloudPillow(p){
 function rainbowArch(p){
   const cols=['#ff6b78','#ffb048','#ffe058','#68cc78','#56b4f0'];
   cols.forEach((c,i)=>{
-    const r=.46-i*.055;
-    const arc=torus(p,paint(c),r,.034,0,.20,0);
-    arc.scale.set(1,1,1.3);
+    const r=.48-i*.056;
+    const geo=singleUseGeometry(new THREE.TorusGeometry(r,.034,10,24,Math.PI));
+    const arc=part(p,geo,paint(c),0,.16,0);
+    arc.scale.set(1,1,1.35);
   });
-  for(const s of [-1,1])oval(p,white,.18,.14,.18,s*.44,.16,0);
+  for(const s of [-1,1]){
+    oval(p,white,.18,.14,.18,s*.40,.15,0);
+    oval(p,white,.13,.11,.14,s*.50,.12,.04);
+  }
 }
 function sunBuddy(p){
   const sun=paint('#ffd238'),ray=paint('#ff9e32');
@@ -49,10 +53,12 @@ function sunBuddy(p){
 }
 function crescentMoon(p){
   const moon=paint('#ffe270'),starM=paint('#ff9eb8');
-  const ring=torus(p,moon,.32,.11,0,.48,0);ring.scale.set(1,1.05,.9);
-  oval(p,starM,.12,.12,.10,.16,.58,0);
+  const geo=singleUseGeometry(new THREE.TorusGeometry(.30,.105,12,26,Math.PI*1.32));
+  const arc=part(p,geo,moon,.04,.48,0);
+  arc.rotation.z=Math.PI*.36;
+  oval(p,starM,.12,.12,.09,.16,.54,0);
   box(p,paint('#84a6e6'),.46,.08,.26,0,.04,0,.02);
-  cuteEyes(p,.50,.11,-.08,.024);
+  for(const s of [-1,1])bead(p,ink,.022,.026,.02,-.24+s*.04,.46,.105);
 }
 function raindropToy(p){
   const drop=paint('#62c4f6'),umb=paint('#ff7a96');

@@ -2,6 +2,7 @@ import { THREE, bake, box, group, oval, paint, part, profile, rod, torus, tube }
 import { CHUTE, GATE, ROOF } from './playfield.js';
 import {cabinetShell,cabinetCarpet} from './cabinet.js';
 import {CLAW_SCALE,firstFingerYaw} from './claw-shadow.js';
+import {disposeStageBackdrop} from './scene-art.js';
 
 const cream = paint('#fff5dc');
 const porcelain = paint('#f6f8fc');
@@ -110,14 +111,24 @@ function wallTexture(theme){
   return textures.get(theme);
 }
 
-export async function furnishBay(root,theme,clawShadow){
+export function evictWallTexture(theme,id){
+  if(typeof theme.bg==='function'){
+    textures.delete(theme);
+    disposeStageBackdrop(id);
+  }
+}
+
+export async function furnishBay(root,theme,clawShadow,id){
   const texture=await wallTexture(theme);
   cabinetShell(root,theme);
   const well=group(root);deliveryWell(well);bake(well);
-  const carpet=new THREE.MeshStandardMaterial({roughness:.82,metalness:.01,map:cabinetCarpet(theme)});
-  playgroundFloor(root,clawShadow.receiver(carpet));
+  const carpetTex=cabinetCarpet(theme);
+  const carpet=new THREE.MeshStandardMaterial({roughness:.82,metalness:.01,map:carpetTex});
+  const carpetMat=clawShadow.receiver(carpet);
+  playgroundFloor(root,carpetMat);
   const hatch=supplyHatch(root);hatch.artwork(texture);hatch.open(0);
-  const mural=clawShadow.wallReceiver(new THREE.MeshBasicMaterial({map:texture,toneMapped:false}));
+  const muralBase=new THREE.MeshBasicMaterial({map:texture,toneMapped:false});
+  const mural=clawShadow.wallReceiver(muralBase);
   part(root,new THREE.PlaneGeometry(10.66,ROOF+.04),mural,0,(ROOF+.04)/2,-4.25);
   const wallShadow=new THREE.ShadowMaterial({color:'#182a44',opacity:.17,transparent:true,depthWrite:false});
   const wallCatch=part(root,new THREE.PlaneGeometry(10.66,ROOF+.04),wallShadow,0,(ROOF+.04)/2,-4.24);
@@ -132,7 +143,13 @@ export async function furnishBay(root,theme,clawShadow){
   }
   box(backTrim,wallFrame,10.64,.09,.08,0,ROOF-.04,-4.21,.012);
   bake(backTrim,{castShadow:false,receiveShadow:false});
-  return hatch.open;
+  const open=hatch.open;
+  open.dispose=()=>{
+    carpetTex.dispose();carpet.dispose();if(carpetMat!==carpet)carpetMat.dispose();
+    muralBase.dispose();if(mural!==muralBase)mural.dispose();wallShadow.dispose();
+    if(id)evictWallTexture(theme,id);
+  };
+  return open;
 }
 
 export function makeCrane(scene,clawShadow,theme) {

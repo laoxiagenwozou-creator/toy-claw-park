@@ -337,10 +337,11 @@ function hermitCrab(p){
 function clownFish(p){
   const orange=paint('#f47428');
   oval(p,orange,.40,.28,.22,0,.36,0);
-  for(const x of [-.12,.14])box(p,white,.08,.50,.40,x,.36,0,.04);
+  oval(p,white,.065,.285,.226,-.11,.36,0);
+  oval(p,white,.065,.270,.216,.13,.36,0);
   profile(p,orange,[[0,0],[-.22,.18],[-.22,-.18]],.06,-.36,.36,0,.02);
   oval(p,orange,.14,.10,.06,0,.64,0);
-  cuteEyes(p,.40,.18,.08,.026);
+  for(const s of [-1,1])bead(p,ink,.026,.030,.022,.28,.41,s*.165);
 }
 
 export const WORLD_CULTURE={

@@ -824,15 +824,20 @@ export function stageBackdrop(id){
   return backdropCache.get(id);
 }
 
+export function disposeStageBackdrop(id){
+  const tex=backdropCache.get(id);
+  if(tex){tex.dispose();backdropCache.delete(id);}
+}
+
 export function stageCardUrl(id){
   if(!cardCache.has(id)){
-    const canvas=makeCanvas(360,240,(ctx,w,h)=>{
+    const canvas=makeCanvas(320,214,(ctx,w,h)=>{
       drawScene(ctx,w,h,id);
       const vig=ctx.createLinearGradient(0,h*.62,0,h);
       vig.addColorStop(0,'rgba(24,38,44,0)');vig.addColorStop(1,'rgba(24,38,44,.22)');
       ctx.fillStyle=vig;ctx.fillRect(0,0,w,h);
     });
-    cardCache.set(id,canvas.toDataURL('image/png'));
+    cardCache.set(id,canvas.toDataURL('image/jpeg',.85));
   }
   return cardCache.get(id);
 }
@@ -1132,15 +1137,15 @@ export function dockSpriteUrl(stageId){
     const kind=STAGE_MEDAL_KIND[stageId]||'truckGreen';
     const [bg,fg,acc]=TOY_PALETTE[kind]||['#e8f2ee','#5a8e8a','#ffe28a'];
     // 1x2 vertical sprite: top = resting dock badge, bottom = glowing open/celebrating dock
-    const canvas=makeCanvas(160,280,(ctx,w)=>{
-      // Top frame (0..140)
-      ctx.fillStyle='#f7ead0';rr(ctx,14,14,132,112,24);ctx.fill();
-      ctx.strokeStyle='#b88b58';ctx.lineWidth=6;ctx.stroke();
-      drawEmblem(ctx,w/2,70,48,kind,bg,fg,acc);
-      // Bottom frame (140..280) - glowing welcome state
-      ctx.fillStyle='#fff6cf';rr(ctx,10,150,140,120,26);ctx.fill();
-      ctx.strokeStyle='#48a882';ctx.lineWidth=7;ctx.stroke();
-      drawEmblem(ctx,w/2,210,52,kind,bg,fg,acc);
+    const canvas=makeCanvas(120,210,(ctx,w)=>{
+      // Top frame (0..105)
+      ctx.fillStyle='#f7ead0';rr(ctx,10,10,100,85,18);ctx.fill();
+      ctx.strokeStyle='#b88b58';ctx.lineWidth=4.5;ctx.stroke();
+      drawEmblem(ctx,w/2,52.5,36,kind,bg,fg,acc);
+      // Bottom frame (105..210) - glowing welcome state
+      ctx.fillStyle='#fff6cf';rr(ctx,8,113,104,90,20);ctx.fill();
+      ctx.strokeStyle='#48a882';ctx.lineWidth=5;ctx.stroke();
+      drawEmblem(ctx,w/2,158,39,kind,bg,fg,acc);
     });
     dockCache.set(stageId,canvas.toDataURL('image/png'));
   }
